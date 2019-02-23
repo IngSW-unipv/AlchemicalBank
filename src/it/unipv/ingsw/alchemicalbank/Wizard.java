@@ -1,4 +1,4 @@
-package unipv.ingsw.alchemicalbank;
+package it.unipv.ingsw.alchemicalbank;
 
 
 /**
@@ -10,12 +10,12 @@ abstract public class Wizard implements Comparable<Wizard> {
     private int coins = 0;
 
     /**
-     * Called when the wizard has to decide if he wants to close the account or to keep it for another month.
+     * This method is called when the wizard has to decide if he wants to close the account or to keep it for another month.
      *
      * @param accountValue current value of the account
      * @param timespan months since when the account was opened
      * @param otherCoins coins owned by the other account holder
-     * @return
+     * @return the decision taken by the wizard
      */
     abstract public Decision askKeepOrClose(int accountValue, int timespan, int otherCoins);
 

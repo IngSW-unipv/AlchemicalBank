@@ -1,7 +1,7 @@
-package unipv.ingsw.alchemicalbank.wizards;
+package it.unipv.ingsw.alchemicalbank.wizards;
 
-import unipv.ingsw.alchemicalbank.Decision;
-import unipv.ingsw.alchemicalbank.Wizard;
+import it.unipv.ingsw.alchemicalbank.Decision;
+import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class GreedyWizard extends Wizard {
     @Override

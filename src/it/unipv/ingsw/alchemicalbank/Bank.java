@@ -1,13 +1,10 @@
-package unipv.ingsw.alchemicalbank;
+package it.unipv.ingsw.alchemicalbank;
 
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.matchprocessor.SubclassMatchProcessor;
-import unipv.ingsw.alchemicalbank.wizards.GreedyWizard;
-import unipv.ingsw.alchemicalbank.wizards.PatientWizard;
-import unipv.ingsw.alchemicalbank.wizards.WackyWizard;
+import it.unipv.ingsw.alchemicalbank.wizards.WackyWizard;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -45,19 +42,13 @@ public final class Bank {
             }
         }).scan();
 
-        // Verify the initial balance of the dealers.
+        // Verify the initial balance of the wizards.
         for (Wizard w : clients)
             checkBalance(w, 0);
 
-        // Add extra dealers.
-        for (int i = 0; i < 10; i++)
-            clients.add(new PatientWizard());
-        for (int i = 0; i < 9; i++)
-            clients.add(new WackyWizard());
-
-        // except 'GreedyWizard' if they are in an odd number.
+        // add one extra 'WackyWizard' if they are in an odd number.
         if (clients.size() % 2 != 0) {
-            clients.add(new GreedyWizard());
+            clients.add(new WackyWizard());
         }
 
         LOGGER.info(clients.size() + " clients summoned");
@@ -84,11 +75,21 @@ public final class Bank {
         }
     }
 
+    /**
+     * Perform the given years of simulation.
+     *
+     * @param years
+     */
     public void runSimulation(int years) {
-        for (int year = 0; year < years; year++)
+        for (int year = 0; year < years; year++) {
+            LOGGER.info(String.format("Year %d of %d", year + 1, years));
             simulateYear();
+        }
     }
 
+    /**
+     * Run one simulated year.
+     */
     private void simulateYear() {
         // Wizards are paired by taking consecutive elements in the list after it has been randomly shuffled.
         Collections.shuffle(clients);
@@ -96,12 +97,11 @@ public final class Bank {
             manageAccount(clients.get(i), clients.get(i + 1));
     }
 
+    /// Create a new account for the pair of wizards and manage it until it gets closed
     private void manageAccount(Wizard firstHolder, Wizard secondHolder) {
-        firstHolder.addCoins(INITIAL_ACCOUNT_VALUE / 2);
-        secondHolder.addCoins((INITIAL_ACCOUNT_VALUE + 1) / 2);
         Account account = new Account(INITIAL_ACCOUNT_VALUE, firstHolder, secondHolder);
         while (!account.isClosed())
-            account.advance();
+            account.nextMonth();
         account.payHolders();
     }
 
