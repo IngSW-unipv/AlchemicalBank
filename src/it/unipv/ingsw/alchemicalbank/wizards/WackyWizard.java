@@ -13,10 +13,10 @@ public class WackyWizard extends Wizard {
     private Random randomGenerator = new Random();
 
     @Override
-    public Decision askKeepOrClose(int accountValue, int timespan, int otherCoins) {
+    public Decision askKeepOrLiquidate(int fundValue, int timespan, int otherCoins) {
         if (randomGenerator.nextBoolean())
-            return Decision.KEEP_ACCOUNT;
+            return Decision.KEEP_FUND;
         else
-            return Decision.CLOSE_ACCOUNT;
+            return Decision.LIQUIDATE_FUND;
     }
 }

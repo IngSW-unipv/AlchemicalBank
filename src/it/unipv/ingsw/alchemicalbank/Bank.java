@@ -21,7 +21,7 @@ public final class Bank {
     /// The list of dealers in the market.
     private final List<Wizard> clients = new ArrayList<>();
     /// Value in a new account.
-    private final int INITIAL_ACCOUNT_VALUE = 10;
+    private final int FUND_STARTING_VALUE = 10;
 
     /**
      * Populate the list of clients.
@@ -94,15 +94,15 @@ public final class Bank {
         // Wizards are paired by taking consecutive elements in the list after it has been randomly shuffled.
         Collections.shuffle(clients);
         for (int i = 0; i < clients.size() - 1; i += 2)
-            manageAccount(clients.get(i), clients.get(i + 1));
+            manageFund(clients.get(i), clients.get(i + 1));
     }
 
-    /// Create a new account for the pair of wizards and manage it until it gets closed
-    private void manageAccount(Wizard firstHolder, Wizard secondHolder) {
-        Account account = new Account(INITIAL_ACCOUNT_VALUE, firstHolder, secondHolder);
-        while (!account.isClosed())
-            account.nextMonth();
-        account.payHolders();
+    /// Create a new fund for the pair of wizards and manage it until it gets closed
+    private void manageFund(Wizard firstOwner, Wizard secondOwner) {
+        InvestmentFund investmentFund = new InvestmentFund(FUND_STARTING_VALUE, firstOwner, secondOwner);
+        while (!investmentFund.isClosed())
+            investmentFund.nextMonth();
+        int[] revenues = investmentFund.computeRevenues();
     }
 
     /**

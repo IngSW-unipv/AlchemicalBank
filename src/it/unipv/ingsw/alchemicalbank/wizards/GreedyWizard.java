@@ -5,7 +5,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class GreedyWizard extends Wizard {
     @Override
-    public Decision askKeepOrClose(int accountValue, int timespan, int otherCoins) {
-        return Decision.CLOSE_ACCOUNT;
+    public Decision askKeepOrLiquidate(int fundValue, int timespan, int otherCoins) {
+        return Decision.LIQUIDATE_FUND;
     }
 }

@@ -10,14 +10,14 @@ abstract public class Wizard implements Comparable<Wizard> {
     private int coins = 0;
 
     /**
-     * This method is called when the wizard has to decide if he wants to close the account or to keep it for another month.
+     * This method is called when the wizard has to decide if he wants to close the fund or to keep it for another month.
      *
-     * @param accountValue current value of the account
-     * @param timespan months since when the account was opened
-     * @param otherCoins coins owned by the other account holder
+     * @param fundValue current value of the fund
+     * @param timespan months since when the fund was opened
+     * @param otherCoins coins owned by the other fund owner
      * @return the decision taken by the wizard
      */
-    abstract public Decision askKeepOrClose(int accountValue, int timespan, int otherCoins);
+    abstract public Decision askKeepOrLiquidate(int fundValue, int timespan, int otherCoins);
 
     /**
      * Get the name of the Wizard.
