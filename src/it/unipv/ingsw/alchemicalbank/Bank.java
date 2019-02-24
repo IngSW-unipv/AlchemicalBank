@@ -5,9 +5,7 @@ import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.matchprocessor.SubclassMatchProcessor;
 import it.unipv.ingsw.alchemicalbank.wizards.WackyWizard;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -18,61 +16,41 @@ import java.util.logging.Level;
 public final class Bank {
     /// The logger for this class.
     private final static Logger LOGGER = Logger.getLogger(Bank.class.getName());
-    /// The list of dealers in the market.
-    private final List<Wizard> clients = new ArrayList<>();
-    /// Value in a new account.
+
+    /// The list of clients of the bank
+    private final Map<Wizard, Long> accounts = new HashMap<>();
+
+    /// Value in a new account
     private final int FUND_STARTING_VALUE = 10;
+
+    /// Coins owned by new clients
+    private final long STARTING_BALANCE = 100;
 
     /**
      * Populate the list of clients.
      */
     public void summonClients() {
-        clients.clear();
+        accounts.clear();
 
-        // Add all descendants of the Wizard class
+        // Add one instance of all descendants of the Wizard class
         FastClasspathScanner scanner = new FastClasspathScanner("it.unipv.ingsw");
         scanner.matchSubclassesOf(Wizard.class, new SubclassMatchProcessor<Wizard>() {
             @Override
             public void processMatch(Class<? extends Wizard> w) {
                 try {
-                    clients.add(w.getDeclaredConstructor().newInstance());
+                    Wizard new_client = w.getDeclaredConstructor().newInstance();
+                    accounts.put(new_client, STARTING_BALANCE);
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, e.toString(), e);
                 }
             }
         }).scan();
 
-        // Verify the initial balance of the wizards.
-        for (Wizard w : clients)
-            checkBalance(w, 0);
+        // Add one extra 'WackyWizard' if they are in an odd number
+        if (accounts.size() % 2 != 0)
+            accounts.put(new WackyWizard(), STARTING_BALANCE);
 
-        // add one extra 'WackyWizard' if they are in an odd number.
-        if (clients.size() % 2 != 0) {
-            clients.add(new WackyWizard());
-        }
-
-        LOGGER.info(clients.size() + " clients summoned");
-    }
-
-
-    /**
-     * Prevent wizards from cheating by changing their own balance.
-     * <p>
-     * Cheaters get a fine.
-     *
-     * @param client   the wizard
-     * @param expected the expected balance
-     */
-    private void checkBalance(Wizard client, int expected) {
-        int balance = client.getCoins();
-        if (balance > expected) {
-            LOGGER.warning(client.getName() + " is cheating!");
-            long new_balance = expected;
-            new_balance -= 100 * (balance - expected);
-            if (new_balance < Integer.MIN_VALUE)
-                new_balance = Integer.MIN_VALUE;
-            client.addCoins((int) new_balance - balance);
-        }
+        LOGGER.info(accounts.size() + " clients summoned");
     }
 
     /**
@@ -81,42 +59,54 @@ public final class Bank {
      * @param years
      */
     public void runSimulation(int years) {
-        for (int year = 0; year < years; year++) {
-            LOGGER.info(String.format("Year %d of %d", year + 1, years));
-            simulateYear();
+        for (int year = 1; year <= years; year++) {
+            LOGGER.info(String.format("Year %d of %d", year, years));
+            simulateYear(year);
         }
     }
 
     /**
      * Run one simulated year.
      */
-    private void simulateYear() {
-        // Wizards are paired by taking consecutive elements in the list after it has been randomly shuffled.
+    private void simulateYear(int year) {
+        // Wizards are paired by taking consecutive elements in a list after it has been randomly shuffled
+        List<Wizard> clients = new ArrayList<>(accounts.keySet());
         Collections.shuffle(clients);
         for (int i = 0; i < clients.size() - 1; i += 2)
-            manageFund(clients.get(i), clients.get(i + 1));
+            manageFund(year, clients.get(i), clients.get(i + 1));
     }
 
     /// Create a new fund for the pair of wizards and manage it until it gets closed
-    private void manageFund(Wizard firstOwner, Wizard secondOwner) {
-        InvestmentFund investmentFund = new InvestmentFund(FUND_STARTING_VALUE, firstOwner, secondOwner);
-        while (!investmentFund.isClosed())
-            investmentFund.nextMonth();
-        int[] revenues = investmentFund.computeRevenues();
+    private void manageFund(int year, Wizard firstOwner, Wizard secondOwner) {
+        long coins1 = accounts.get(firstOwner).longValue();
+        long coins2 = accounts.get(secondOwner).longValue();
+        firstOwner.newFund(year, 1, coins1, coins2);
+        secondOwner.newFund(year, 2, coins2, coins1);
+        InvestmentFund fund = new InvestmentFund(FUND_STARTING_VALUE, firstOwner, secondOwner);
+        while (!fund.isClosed())
+            fund.nextMonth();
+        int[] revenues = fund.computeRevenues();
+        firstOwner.fundClosed(fund.getTime(), revenues[0], revenues[1]);
+        accounts.put(firstOwner, coins1 + (long)revenues[0]);
+        accounts.put(secondOwner, coins2 + (long)revenues[1]);
+        String msg = String.format("%16s closes the fund after %2d months: %-16s (%+6d) / %-16s (%+6d)",
+                fund.getLiquidator().getName(), fund.getTime(),
+                firstOwner.getName(), revenues[0],
+                secondOwner.getName(), revenues[1]);
+        LOGGER.info(msg);
     }
 
     /**
      * Sort the list of clients by decreasing profit.
      */
-    public void sortClients() {
-        Collections.sort(clients);
-        Collections.reverse(clients);
-    }
-
-    /**
-     * Return a defensive copy of the list of dealers.
-     */
-    public List<Wizard> getClients() {
-        return Collections.unmodifiableList(clients);
+    public List<Map.Entry<Wizard, Long>> sortedClients() {
+        List<Map.Entry<Wizard, Long>> clients = new ArrayList<>(accounts.entrySet());
+        Collections.sort(clients, new Comparator<Map.Entry<Wizard, Long>>() {
+            @Override
+            public int compare(Map.Entry<Wizard, Long> e1, Map.Entry<Wizard, Long> e2) {
+                return Long.compare(e2.getValue(), e1.getValue());
+            }
+        });
+        return clients;
     }
 }

@@ -4,20 +4,7 @@ package it.unipv.ingsw.alchemicalbank;
 /**
  * A wizard that is client of the Alchemical Bank.
  */
-abstract public class Wizard implements Comparable<Wizard> {
-
-    /// Money made so far.
-    private int coins = 0;
-
-    /**
-     * This method is called when the wizard has to decide if he wants to close the fund or to keep it for another month.
-     *
-     * @param fundValue current value of the fund
-     * @param timespan months since when the fund was opened
-     * @param otherCoins coins owned by the other fund owner
-     * @return the decision taken by the wizard
-     */
-    abstract public Decision askKeepOrLiquidate(int fundValue, int timespan, int otherCoins);
+abstract public class Wizard {
 
     /**
      * Get the name of the Wizard.
@@ -28,23 +15,37 @@ abstract public class Wizard implements Comparable<Wizard> {
     }
 
     /**
-     * Add some money to the profit of the wizard.
+     * This method is called when the wizard has to decide if he wants to close the fund or to keep it for another month.
+     *
+     * @param fundValue current value of the fund
+     * @param timespan  months since when the fund was opened
+     * @return the decision taken by the wizard
      */
-    final void addCoins(int amount) {
-        long new_coins = coins + amount;
-        if (new_coins > Integer.MAX_VALUE || new_coins < Integer.MIN_VALUE)
-            coins = Integer.MIN_VALUE;
-        else
-            coins = (int)new_coins;
+    abstract public Decision askKeepOrLiquidate(int fundValue, int timespan);
+
+
+    /**
+     * Called when a new fund get opened.  By default does nothing, but subclasses may override it if they want to use
+     * this information to adjust their strategy.
+     *
+     * @param year         Year of simulation (starting from 1)
+     * @param order        whether is is the first (1) or second (2) to take decisions
+     * @param partnerCoins amount of coins owned by the wizard before the new fund is opened
+     * @param partnerCoins amount of coins owned by the partner
+     */
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        /* Do nothing */
     }
 
-    /// Return the number of coins owned by the wizard
-    public int getCoins() {
-        return coins;
-    }
-
-    @Override
-    public int compareTo(Wizard wizard) {
-        return Integer.compare(this.coins, wizard.coins);
+    /**
+     * Called when a fund gets liquidated.  By default does nothing, but subclasses may override it if they want to use
+     * this information to adjust their strategy.
+     *
+     * @param time months since the fund was opened
+     * @param yourRevenue the revenue due to the wizard
+     * @param partnerRevenue the revenue due to the partner
+     */
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+        /* Do nothing */
     }
 }
