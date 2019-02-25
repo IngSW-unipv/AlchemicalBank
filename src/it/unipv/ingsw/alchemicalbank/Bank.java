@@ -87,6 +87,7 @@ public final class Bank {
             fund.nextMonth();
         int[] revenues = fund.computeRevenues();
         firstOwner.fundClosed(fund.getTime(), revenues[0], revenues[1]);
+        secondOwner.fundClosed(fund.getTime(), revenues[1], revenues[0]);
         accounts.put(firstOwner, coins1 + (long)revenues[0]);
         accounts.put(secondOwner, coins2 + (long)revenues[1]);
         String msg = String.format("%16s closes the fund after %2d months: %-16s (%+6d) / %-16s (%+6d)",
