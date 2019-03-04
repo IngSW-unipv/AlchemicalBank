@@ -58,12 +58,12 @@ public class InvestmentFund {
 
     /// Compute the coins due to the holders
     public int[] computeRevenues() {
-        int revenue = value - startingValue;
-        int share = revenue * LIQUIDATOR_SHARE / 100;
+        int share1 = value * LIQUIDATOR_SHARE / 100 - startingValue / 2;
+        int share2 = value - startingValue - share1;
         if (owners[0] == liquidator)
-            return new int[]{share, revenue - share};
+            return new int[]{share1, share2};
         else if (owners[1] == liquidator)
-            return new int[]{revenue - share, share};
+            return new int[]{share2, share1};
         else
             return new int[]{0, 0};
     }
