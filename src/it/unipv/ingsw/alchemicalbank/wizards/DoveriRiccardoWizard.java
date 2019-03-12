@@ -17,7 +17,6 @@ public class DoveriRiccardoWizard extends Wizard {
     private int yourRevenue;
     private int partnerRevenue;
 
-    private int punteggio = 0;
     private int soglia = 10;
 
     @Override
@@ -48,11 +47,6 @@ public class DoveriRiccardoWizard extends Wizard {
         this.yourRevenue = yourRevenue;
         this.partnerRevenue = partnerRevenue;
 
-        if ((yourRevenue-yourCoins) > (partnerRevenue-partnerCoins)) {
-            punteggio++;
-        }
-        else {
-            punteggio--;
-        }
+
     }
 }
