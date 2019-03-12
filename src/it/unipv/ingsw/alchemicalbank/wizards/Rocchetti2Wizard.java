@@ -3,9 +3,10 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-import java.util.ArrayList;
 
 public class Rocchetti2Wizard extends Wizard {
+
+
 
     /**
      * @author Francesco Rocchetti 445854
@@ -13,44 +14,29 @@ public class Rocchetti2Wizard extends Wizard {
      * @return
      */
 
-    ArrayList<Integer> lista;
-    private int target =8192;
-
-    public Rocchetti2Wizard() {
-        lista = new ArrayList<>();
-        lista.add(8192);
-    }
+    int target = 12;
+    int order;
 
     @Override
-    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
-        int max;
-        if(yourRevenue > partnerRevenue){
-            max = yourRevenue;
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        this.order = order;
+        if(year>10){
+            target = (int)((partnerCoins/year)*1.20);
         }
-        else {
-            max = partnerRevenue;
-        }
-
-        lista.add(max);
-
-        int t=0;
-
-        for(Integer a : lista){
-            t+=a;
-        }
-
-        target= t/lista.size();
-
     }
-
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 
-        if ((int)(fundValue * 0.80) >= target) {
+        if (timespan >= 10) {
             return Decision.LIQUIDATE_FUND;
         }
-        else
-            return Decision.KEEP_FUND;
+
+ /*       //peggiora il risultato
+        if (fundValue >= target) {
+            return Decision.LIQUIDATE_FUND;
+        }
+*/
+        return Decision.KEEP_FUND;
     }
 }
