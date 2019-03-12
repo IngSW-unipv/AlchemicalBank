@@ -42,5 +42,7 @@ public class AlchemicalBank {
         int rank = 0;
         for (Map.Entry<Wizard, Long> e : wizards)
             System.out.printf("%3d) %21s %+6d\n", ++rank, e.getKey().getName(), e.getValue().longValue());
+
+
     }
 }
