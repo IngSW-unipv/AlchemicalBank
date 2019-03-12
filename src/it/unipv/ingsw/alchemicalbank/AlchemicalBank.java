@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class AlchemicalBank {
 
-    private static final int DEFAULT_YEARS = 50;
+    private static final int DEFAULT_YEARS = 10;
 
     /**
      * Main method
