@@ -9,9 +9,17 @@ public class AzzimoWizard extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan >= 10)
-            return Decision.LIQUIDATE_FUND;
-        else
-            return Decision.KEEP_FUND;
+        if (timespan % 2 == 0) {
+            if (timespan > 9)
+                return Decision.LIQUIDATE_FUND;
+            else
+                return Decision.KEEP_FUND;
+        }
+        else {
+            if (timespan > 10)
+                return Decision.LIQUIDATE_FUND;
+            else
+                return Decision.KEEP_FUND;
+        }
     }
 }
