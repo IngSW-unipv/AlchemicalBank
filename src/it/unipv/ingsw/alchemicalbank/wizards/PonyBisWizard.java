@@ -8,8 +8,9 @@ public class PonyBisWizard extends Wizard {
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 
         if (timespan % 2 == 0) {
-            if (timespan > 11)
+            if (timespan == 11){
                 return Decision.LIQUIDATE_FUND;
+            }
             else return Decision.KEEP_FUND;
         } else {
             if (timespan > 10)
