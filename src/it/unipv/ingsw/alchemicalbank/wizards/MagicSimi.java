@@ -1,19 +1,19 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+//Mago di Ghiazzi Simone Matricola: 446597
+
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class MarazziFedericoMarianiLorenzo extends Wizard {
-
-    //MARAZZI FEDERICO 448929
-    //MARIANI LORENZO 448295
-
+public class MagicSimi extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan >= 11) {
-            return Decision.LIQUIDATE_FUND;
-        } else{
+        if(fundValue%timespan==0 && timespan<10){
             return Decision.KEEP_FUND;
         }
+        if (timespan==7){
+        return Decision.LIQUIDATE_FUND;
+        }
+        return Decision.KEEP_FUND;
     }
 }
