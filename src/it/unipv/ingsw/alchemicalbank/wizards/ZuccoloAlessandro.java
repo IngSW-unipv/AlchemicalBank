@@ -70,9 +70,9 @@ private long sueMonete;
 
             case 6:
                 if(mieMonete>=sueMonete) {
-                    if (ordine == 1 && timespan >= 5) {
+                    if (ordine == 1 && timespan >= 7) {
                         return Decision.LIQUIDATE_FUND;
-                    } else if (ordine == 2 && timespan >= 6) {
+                    } else if (ordine == 2 && timespan >= 8) {
                         return Decision.LIQUIDATE_FUND;
                     } else {
                         return Decision.KEEP_FUND;
@@ -90,9 +90,9 @@ private long sueMonete;
 
                 case 7:
                     if(mieMonete>=sueMonete) {
-                        if (ordine == 1 && timespan >= 5) {
+                        if (ordine == 1 && timespan >= 7) {
                             return Decision.LIQUIDATE_FUND;
-                        } else if (ordine == 2 && timespan >= 6) {
+                        } else if (ordine == 2 && timespan >= 8) {
                             return Decision.LIQUIDATE_FUND;
                         } else {
                             return Decision.KEEP_FUND;
@@ -110,9 +110,9 @@ private long sueMonete;
 
             case 8:
                 if(mieMonete>=sueMonete) {
-                    if (ordine == 1 && timespan >= 5) {
+                    if (ordine == 1 && timespan >= 7) {
                         return Decision.LIQUIDATE_FUND;
-                    } else if (ordine == 2 && timespan >= 6) {
+                    } else if (ordine == 2 && timespan >= 8) {
                         return Decision.LIQUIDATE_FUND;
                     } else {
                         return Decision.KEEP_FUND;
@@ -130,9 +130,9 @@ private long sueMonete;
 
                 case 9:
                     if(mieMonete>=sueMonete) {
-                        if (ordine == 1 && timespan >= 5) {
+                        if (ordine == 1 && timespan >= 7) {
                             return Decision.LIQUIDATE_FUND;
-                        } else if (ordine == 2 && timespan >= 6) {
+                        } else if (ordine == 2 && timespan >= 8) {
                             return Decision.LIQUIDATE_FUND;
                         } else {
                             return Decision.KEEP_FUND;
@@ -150,9 +150,9 @@ private long sueMonete;
 
             case 10:
                 if(mieMonete>=sueMonete) {
-                    if (ordine == 1 && timespan >= 5) {
+                    if (ordine == 1 && timespan >= 7) {
                         return Decision.LIQUIDATE_FUND;
-                    } else if (ordine == 2 && timespan >= 6) {
+                    } else if (ordine == 2 && timespan >= 8) {
                         return Decision.LIQUIDATE_FUND;
                     } else {
                         return Decision.KEEP_FUND;
@@ -165,6 +165,9 @@ private long sueMonete;
                     } else {
                         return Decision.KEEP_FUND;
                     }
+                }
+                default:if(timespan>10){
+                    return Decision.LIQUIDATE_FUND;
                 }
 
         }
