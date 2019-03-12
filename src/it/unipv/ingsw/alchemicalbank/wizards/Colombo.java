@@ -8,6 +8,14 @@ public class Colombo extends Wizard {
     private int foundValue;
     private int timespan;
 
+    private int year;
+    private int order;
+    private long yourCoins;
+    private long partnerCoins;
+
+    private int time;
+    private int yourRevenue;
+    private int partnerRevenue;
 
     private int soglia = 11;
 
@@ -31,6 +39,23 @@ public class Colombo extends Wizard {
 
     }
 
+    @Override
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        this.year = year;
+        this.order = order;
+        this.yourCoins = yourCoins;
+        this.partnerCoins = partnerCoins;
+
 
     }
+
+    @Override
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+        this.time = time;
+        this.yourRevenue = yourRevenue;
+        this.partnerRevenue = partnerRevenue;
+
+
+    }
+
 }
