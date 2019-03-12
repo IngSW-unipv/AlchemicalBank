@@ -29,7 +29,7 @@ abstract public class Wizard {
      * this information to adjust their strategy.
      *
      * @param year         Year of simulation (starting from 1)
-     * @param order        whether is is the first (1) or second (2) to take decisions
+     * @param order        whether is  the first (1) or second (2) to take decisions
      * @param partnerCoins amount of coins owned by the wizard before the new fund is opened
      * @param partnerCoins amount of coins owned by the partner
      */
