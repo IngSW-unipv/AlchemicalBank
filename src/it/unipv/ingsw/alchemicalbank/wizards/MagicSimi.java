@@ -13,6 +13,7 @@ public class MagicSimi extends Wizard {
     private int time;
     private int yourRevenue;
     private int partnerRevenue;
+    private int limite = 11;
 
     @Override
     public void newFund(int year, int order, long yourCoins, long partnerCoins) {
@@ -31,9 +32,17 @@ public class MagicSimi extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan <= 9)
+        if (year > 45) {
+            if (partnerCoins<yourCoins) {
+                limite = 10;
+            }
+            else {
+                limite = 9;
+            }
+        }
+        if (timespan < limite) {
             return Decision.KEEP_FUND;
-        else
-            return Decision.LIQUIDATE_FUND;
+        }
+        else return Decision.LIQUIDATE_FUND;
     }
 }
