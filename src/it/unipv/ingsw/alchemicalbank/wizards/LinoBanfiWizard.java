@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class LinoBanfiWizard extends Wizard {
 
-
+//Andrea Curtoni 446018
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
