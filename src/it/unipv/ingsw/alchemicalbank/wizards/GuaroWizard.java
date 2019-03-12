@@ -3,7 +3,15 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
+
+/**
+ * Cognome: Guareschi
+ * Nome: Federico
+ */
 public class GuaroWizard extends Wizard {
+
+    //Federico Guareschi
+
     private long partnerCoins;
     private long myCoins;
     private int myRevenue;
