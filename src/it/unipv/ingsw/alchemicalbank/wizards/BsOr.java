@@ -1,3 +1,8 @@
+/*
+    Mattia Bosio
+    Matteo Orsolini
+ */
+
 package it.unipv.ingsw.alchemicalbank.wizards;
 
 import it.unipv.ingsw.alchemicalbank.Decision;
