@@ -9,10 +9,10 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class Zanaboni_Riccardo extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if(timespan%2==0 && timespan>9){
+        if(timespan%2==0 && timespan>11){
             return Decision.LIQUIDATE_FUND;
         }
-        if(timespan%2!=0 && timespan>8){
+        if(timespan%2!=0 && timespan>10){
             return Decision.LIQUIDATE_FUND;
         }
         else{
