@@ -5,10 +5,12 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class PonyWizard extends Wizard {
 
+
+
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 
         if (timespan % 2 == 0) {
-            if (timespan > 9)
+            if (timespan > 11)
                 return Decision.LIQUIDATE_FUND;
             else return Decision.KEEP_FUND;
         } else {
@@ -17,5 +19,11 @@ public class PonyWizard extends Wizard {
             else return Decision.KEEP_FUND;
 
         }
+
+
+
+
+
+
     }
 }
