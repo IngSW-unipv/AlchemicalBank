@@ -3,19 +3,15 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-
-// ZANABONI RICCARDO 445667
-
-public class Zanaboni_Riccardo extends Wizard {
-    private int i = 11;
-
+public class MatteoZaccariniWizard extends Wizard{
+    /**
+     * A wizard by Matteo Zaccarini matricola 463195
+     */
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan == i || timespan == i + 1) {
-            return Decision.LIQUIDATE_FUND;
-        } else {
+        if (timespan < 10)
             return Decision.KEEP_FUND;
-        }
+        else
+            return Decision.LIQUIDATE_FUND;
     }
 }
-
