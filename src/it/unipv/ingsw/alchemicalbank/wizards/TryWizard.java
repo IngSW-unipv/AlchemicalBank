@@ -15,7 +15,6 @@ import java.util.ArrayList;
         private int myOrder;
         private int averageT;
         private int previous;
-
         @Override
         public Decision askKeepOrLiquidate(int fundValue, int timespan) {
             if (year == 1)
