@@ -28,9 +28,4 @@ public class Zanaboni_Riccardo extends Wizard {
             }
         }
     }
-
-    @Override
-    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
-        super.fundClosed(time, yourRevenue, partnerRevenue);
-    }
 }
