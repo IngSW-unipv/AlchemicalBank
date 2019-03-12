@@ -14,7 +14,7 @@ public class SmartWizardFerrari extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if((order == 1 && timespan == 11)) {
+        if((order == 1 && timespan == 11) || (order == 2 && timespan == 10)) {
             return  Decision.LIQUIDATE_FUND;
         }
 
