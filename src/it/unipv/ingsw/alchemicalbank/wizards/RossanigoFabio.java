@@ -4,9 +4,9 @@ import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
 
-// ZANABONI RICCARDO 445667
+// Rossanigo Fabio 446986
 
-public class Zanaboni_Riccardo extends Wizard {
+public class RossanigoFabio extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
         if( timespan==10 || timespan==11){
