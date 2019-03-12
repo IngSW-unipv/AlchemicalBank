@@ -17,13 +17,21 @@ public class DoveriRiccardoWizard extends Wizard {
     private int yourRevenue;
     private int partnerRevenue;
 
-    private int soglia = 10;
+    private int soglia = 11;
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
         this.foundValue = fundValue;
         this.timespan = timespan;
 
+        if (year > 45) {
+            if (partnerCoins>yourCoins) {
+                soglia = 9;
+            }
+            else {
+                soglia = 10;
+            }
+        }
         if (timespan >= soglia) {
             return Decision.LIQUIDATE_FUND;
         }
