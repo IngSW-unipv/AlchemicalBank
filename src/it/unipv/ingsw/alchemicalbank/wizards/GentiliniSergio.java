@@ -18,7 +18,7 @@ public class GentiliniSergio extends Wizard {
             if ((timespan == 8) || (timespan == 9)) return Decision.LIQUIDATE_FUND;
             return Decision.KEEP_FUND;
         }
-        if (fundValue >= 30000) {
+        if (fundValue >= 50000) {
             if ((timespan == 8) || (timespan == 9)) return Decision.LIQUIDATE_FUND;
             return Decision.KEEP_FUND;
         }
@@ -28,7 +28,7 @@ public class GentiliniSergio extends Wizard {
 
     @Override
     public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-        if ((year >= 45) && (yourCoins < 30000)) numeroStrategia = 2;
+        if ((year >= 90) && (yourCoins < 50000)) numeroStrategia = 2;
         else numeroStrategia = 1;
     }
 }
