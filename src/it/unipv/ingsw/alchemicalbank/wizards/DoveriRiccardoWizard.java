@@ -4,35 +4,84 @@ import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class DoveriRiccardoWizard extends Wizard {
+    private int year;
+    private int order;
+    private long yourCoins;
+    private long partnerCoins;
+    private  int time;
+    private int yourRevenue;
+    private int partnerRevenue;
+    private int soglia1 = 11;
+    private int soglia2 = 10;
+    @Override
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        this.year = year;
+        this.order = order;
+        this.yourCoins = yourCoins;
+        this.partnerCoins = partnerCoins;
+
+    }
+
+    @Override
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+        this.time = time;
+        this.yourRevenue = yourRevenue;
+        this.partnerRevenue = partnerRevenue;
+        impostaSogliaFine();
+    }
+    private void alzaSoglia() {
+        if (order == 1) {
+            if (soglia1 <= 9) {
+                soglia1 = soglia1 +2;
+            }
+        }
+
+        else {
+            if (soglia2 <= 10) {
+                soglia2 = soglia2 +2;
+            }
+        }
+    }
+    private void abbassaSoglia() {
+        if (order == 1) {
+            if (soglia1 >= 3) {
+                soglia1 = soglia1 -2;
+            }
+        }
+
+        else {
+            if (soglia2 >= 4) {
+                soglia2 = soglia2 -2;
+            }
+        }
+    }
+
+    private void impostaSoglia(){
+        if (yourCoins >= partnerCoins) {
+            abbassaSoglia();
+        }
+        else alzaSoglia();
+    }
+    private void impostaSogliaFine() {
+        if ((yourRevenue-yourCoins)>(partnerRevenue-partnerCoins)) {
+        }
+        else abbassaSoglia();
+    }
+
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        switch (fundValue) {
-            case 20:
-                return Decision.KEEP_FUND;
-            case 40:
-                return Decision.KEEP_FUND;
-            case 80:
-                return Decision.KEEP_FUND;
-            case 160:
-                return Decision.KEEP_FUND;
-            case 320:
-                return Decision.LIQUIDATE_FUND;
-            case 640:
-                return Decision.LIQUIDATE_FUND;
-            case 1280:
-                return Decision.KEEP_FUND;
-            case 2560:
-                return Decision.KEEP_FUND;
-            case 5120:
-                return Decision.KEEP_FUND;
-            case 10240:
-                return Decision.KEEP_FUND;
-            case 20480:
-                return Decision.KEEP_FUND;
-            case 40960:
-                return Decision.KEEP_FUND;
-                default:
-                    return Decision.LIQUIDATE_FUND;
-        }
+        impostaSoglia();
+       if (order == 1) {
+           if (timespan >= soglia1) {
+               return Decision.LIQUIDATE_FUND;
+           }
+           else return Decision.KEEP_FUND;
+       }
+       else {
+           if (timespan >= soglia2) {
+               return Decision.LIQUIDATE_FUND;
+           }
+           else return Decision.KEEP_FUND;
+       }
     }
 }
