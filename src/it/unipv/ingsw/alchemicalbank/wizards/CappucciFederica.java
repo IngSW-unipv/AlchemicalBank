@@ -25,7 +25,10 @@ public class CappucciFederica extends Wizard {
         this.yourCoins=yourCoins+this.yourCoins;
         this.partnerCoins=partnerCoins;
         this.year=year;
-        long mediaPart=(partnerCoins-100)/year;
+        if(partnerCoins>=(year*16))
+        {
+            mese=2;
+        }
         if(partnerCoins>=(year*8192))
         {
             //si ferma in meia la 10
@@ -49,6 +52,7 @@ public class CappucciFederica extends Wizard {
             }
             mese=11;
         }
+
 
 
     }
