@@ -17,32 +17,6 @@ public class SmartWizardFerrari extends Wizard {
         if((order == 1 && timespan == 11) || (order == 2 && timespan == 10)) {
             return  Decision.LIQUIDATE_FUND;
         }
-
-        if(timespan == risk*2 && fundValue > 0.40*yourCoins) {
-            return  Decision.LIQUIDATE_FUND;
-        }
-
         return Decision.KEEP_FUND;
-    }
-
-    @Override
-    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-        this.year = year;
-        this.order = order;
-        this.yourCoins = yourCoins;
-        this.partnerCoins = partnerCoins;
-
-        if(yourCoins < (partnerCoins - 0.25*partnerCoins)) {
-            risk++;
-            if(risk > 3) {
-                risk = 3;
-            }
-        }
-        else if(yourCoins > (partnerCoins + 0.5*partnerCoins)) {
-            risk--;
-            if(risk < 1) {
-                risk = 1;
-            }
-        }
     }
 }
