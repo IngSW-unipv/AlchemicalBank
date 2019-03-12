@@ -4,7 +4,7 @@ import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Edu extends Wizard {
-    public int order;
+
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
         if (timespan < 10) {
