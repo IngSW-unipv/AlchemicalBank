@@ -13,12 +13,7 @@ public class CappucciFederica extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-            //mese dispari
-            if(timespan>=mese)
-            {
-                return Decision.LIQUIDATE_FUND;
-            }
-        if(timespan>=mese)
+        if(timespan>=(mese))
         {
             return Decision.LIQUIDATE_FUND;
         }
@@ -29,24 +24,24 @@ public class CappucciFederica extends Wizard {
         this.yourCoins=yourCoins+this.yourCoins;
         this.partnerCoins=partnerCoins;
         this.year=year;
-        if(partnerCoins>=(year*8192))
+        if(partnerCoins>=(year-1*8192))
         {
             //si ferma in media la 10
             mese=10;
         }
         else
         {
-            if(partnerCoins>=(year*2048))
+            if(partnerCoins>=(year-1*2048))
             {
                 //in media si ferma a 8
                 mese=8;
             }
-            if(partnerCoins>=(year*4096))
+            if(partnerCoins>=(year-1*4096))
             {
                 //si ferma in media a 9
                 mese=9;
             }
-            if(partnerCoins>=(year*16384))
+            if(partnerCoins>=(year-1*16384))
             {
                 mese=11;
             }
