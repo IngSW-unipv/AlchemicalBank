@@ -19,4 +19,11 @@ public class SmartWizardFerrari extends Wizard {
         }
         return Decision.KEEP_FUND;
     }
+
+    public void newFund(int year, int order, long yourCoins, long partnerCoins){
+        this.year= year;
+        this.order= order;
+        this.yourCoins=yourCoins;
+        this.partnerCoins= partnerCoins;
+    }
 }
