@@ -6,11 +6,11 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class MacriSara extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan < 10) {
-            return Decision.KEEP_FUND;
+        if (timespan>9) {
+            return Decision.LIQUIDATE_FUND;
         }
         else{
-            return Decision.LIQUIDATE_FUND;
+            return Decision.KEEP_FUND;
         }
     }
 }
