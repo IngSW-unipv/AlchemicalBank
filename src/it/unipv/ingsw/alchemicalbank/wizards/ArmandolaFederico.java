@@ -22,13 +22,13 @@ public class ArmandolaFederico extends Wizard {
     public Decision askKeepOrLiquidate(int fundValue, int timespan)
     {
 
-        if(ordine == 1 && timespan == 11  )
+        if(ordine == 1 &&  timespan==11  && fundValue>valore)
         {
 
             return Decision.LIQUIDATE_FUND;
 
         }
-        else if(ordine == 2 && timespan == 12)
+        else if(ordine == 2 && timespan == 10  && fundValue>valore )
             {
                 return Decision.LIQUIDATE_FUND;
             }
