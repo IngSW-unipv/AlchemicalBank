@@ -2,7 +2,7 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
-
+// Doveri Riccardo 448794
 public class DoveriRiccardoWizard extends Wizard {
     private int year;
     private int order;
