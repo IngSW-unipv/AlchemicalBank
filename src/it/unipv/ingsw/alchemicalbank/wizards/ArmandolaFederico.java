@@ -14,13 +14,43 @@ import java.util.Random;
 
 public class ArmandolaFederico extends Wizard {
 
+    private int valore;
+    private int ordine;
+
     private Random randomGenerator = new Random();
     @Override
-    public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+    public Decision askKeepOrLiquidate(int fundValue, int timespan)
+    {
 
-        if (randomGenerator.nextBoolean())
-            return Decision.KEEP_FUND;
-        else
+        if(ordine == 1 && timespan == 11  )
+        {
+
             return Decision.LIQUIDATE_FUND;
+
+        }
+        else if(ordine == 2 && timespan == 12)
+            {
+                return Decision.LIQUIDATE_FUND;
+            }
+            else {
+            return  Decision.KEEP_FUND;
+        }
+
+    }
+
+
+    @Override
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue)
+    {
+        super.fundClosed(time, yourRevenue, partnerRevenue);
+
+        this.valore = partnerRevenue;
+
+    }
+
+    @Override
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        super.newFund(year, order, yourCoins, partnerCoins);
+        this.ordine=order;
     }
 }
