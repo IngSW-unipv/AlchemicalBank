@@ -14,12 +14,19 @@ public class PoopyWizard extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if(timespan==7 && order==1) {
-            return Decision.LIQUIDATE_FUND;
-        } else if (timespan==8 && order==2) {
-            return Decision.LIQUIDATE_FUND;
+        if (order==2) {
+            if (timespan > 10) {
+                return Decision.LIQUIDATE_FUND;
+            } else {
+                return Decision.KEEP_FUND;
+            }
         } else {
-            return Decision.KEEP_FUND;
+            if (timespan > 9) {
+                return Decision.LIQUIDATE_FUND;
+            } else {
+                return Decision.KEEP_FUND;
+            }
+
         }
     }
 
