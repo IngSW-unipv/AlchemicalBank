@@ -8,7 +8,6 @@ public class MarazziFedericoMarianiLorenzo extends Wizard{
     //MARAZZI FEDERICO 448929
     //MARIANI LORENZO 448295
 
-    //maximizing the earnings by closing the fund in the middle of the year
     private final int MAX_MAGO1 = 11, MAX_MAGO2 = 12;
 
     @Override
