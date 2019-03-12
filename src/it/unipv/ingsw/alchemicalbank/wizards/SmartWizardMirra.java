@@ -11,7 +11,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 /*
             Giuseppe Mirra 446604
  */
-public class MirraGiuseppe extends Wizard {
+public class SmartWizardMirra extends Wizard {
     private int year, order, risk = 2;
     private long yourCoins, partnerCoins;
 
