@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /*
  Fabio Pezzini 445353
  */
+
     public class TryWizard extends Wizard {
         private ArrayList<Integer> timeclosed;
         private int count;
