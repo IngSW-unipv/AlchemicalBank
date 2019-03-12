@@ -40,7 +40,7 @@ public class BlackJesusMC extends Wizard {
                 }
             }
         }else{//Wizard 1
-                if(timespan % 11 == 0){
+                if(timespan % 9 == 0){
                     return Decision.LIQUIDATE_FUND;
 
                 }else{
