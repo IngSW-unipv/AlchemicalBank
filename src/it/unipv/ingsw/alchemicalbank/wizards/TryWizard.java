@@ -20,6 +20,11 @@ import java.util.ArrayList;
         public Decision askKeepOrLiquidate(int fundValue, int timespan) {
             if (year == 1)
                 return Decision.KEEP_FUND;
+            if (timespan < 11)
+                return Decision.KEEP_FUND;
+            else
+                return Decision.LIQUIDATE_FUND;
+            /*
             if (myOrder == 1) {
                 if(timespan >= 7) {
                     return Decision.LIQUIDATE_FUND;
@@ -39,7 +44,7 @@ import java.util.ArrayList;
                 return Decision.LIQUIDATE_FUND;
             }
             return Decision.KEEP_FUND;
-
+ */
         }
 
 
