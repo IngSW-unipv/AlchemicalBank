@@ -7,7 +7,7 @@ public class PezziStefano extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (fundValue < 16384)
+        if (fundValue < 8192)
             return Decision.KEEP_FUND;
         else
             return Decision.LIQUIDATE_FUND;
