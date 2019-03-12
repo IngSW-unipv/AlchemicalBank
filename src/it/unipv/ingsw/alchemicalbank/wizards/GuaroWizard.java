@@ -11,7 +11,7 @@ public class GuaroWizard extends Wizard {
     private int year;
     public Decision askKeepOrLiquidate(int fundValue, int timespan){
 
-            if (timespan>2)
+            if (timespan>9)
                 return Decision.LIQUIDATE_FUND;
             else
                 return Decision.KEEP_FUND;
