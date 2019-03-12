@@ -9,14 +9,11 @@ public class BlackJesusMC extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 
-        if (timespan % 2==0) {
-            //Wizard1
-        }else{
-            //Wizard2
+        if (timespan % 2 == 0) { //Wizard 2
+            return Decision.KEEP_FUND;
+        }else{//Wizard 1
+            return Decision.LIQUIDATE_FUND;
         }
 
-
-
-        return null;
     }
 }
