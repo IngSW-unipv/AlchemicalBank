@@ -5,6 +5,10 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Colombo extends Wizard {
 
+    private int foundValue;
+    private int timespan;
+
+
     private int soglia = 11;
 
     @Override
