@@ -6,9 +6,17 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 
 public class GremiPaolo extends Wizard {
+    public int yearOfSimulation;
+    public int order;
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        return Decision.LIQUIDATE_FUND;
+        if (timespan < 10) {//da modificare l'if condition
+            return Decision.KEEP_FUND;
+        }
+        else{
+            return Decision.LIQUIDATE_FUND;
+        }
     }
+
 
 }
