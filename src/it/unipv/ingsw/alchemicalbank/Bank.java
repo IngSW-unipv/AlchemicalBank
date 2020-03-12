@@ -1,13 +1,12 @@
 package it.unipv.ingsw.alchemicalbank;
 
-
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.matchprocessor.SubclassMatchProcessor;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfoList;
+import io.github.classgraph.ScanResult;
 import it.unipv.ingsw.alchemicalbank.wizards.WackyWizard;
 
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 
 /**
@@ -33,18 +32,19 @@ public final class Bank {
         accounts.clear();
 
         // Add one instance of all descendants of the Wizard class
-        FastClasspathScanner scanner = new FastClasspathScanner("it.unipv.ingsw");
-        scanner.matchSubclassesOf(Wizard.class, new SubclassMatchProcessor<Wizard>() {
-            @Override
-            public void processMatch(Class<? extends Wizard> w) {
-                try {
-                    Wizard new_client = w.getDeclaredConstructor().newInstance();
-                    accounts.put(new_client, STARTING_BALANCE);
-                } catch (Exception e) {
-                    LOGGER.log(Level.SEVERE, e.toString(), e);
-                }
-            }
-        }).scan();
+        try (ScanResult scanResult = new ClassGraph().enableAllInfo().whitelistPackages("it.unipv.ingsw.alchemicalbank.wizards")
+                .scan()) {
+        	ClassInfoList controlClasses = scanResult.getSubclasses("it.unipv.ingsw.alchemicalbank.Wizard");
+        	List<Class<?>> controlClassRefs = controlClasses.loadClasses();
+        	for (Class<?> c : controlClassRefs) {
+        		try {
+					Wizard new_client = (Wizard)c.getDeclaredConstructor().newInstance();
+					accounts.put(new_client, STARTING_BALANCE);
+				} catch (Exception e) {
+	        		LOGGER.warning("Cannot instantiate " + c.getCanonicalName() + " " + e);
+				} 
+        	}
+        }
 
         // Add one extra 'WackyWizard' if they are in an odd number
         if (accounts.size() % 2 != 0)
@@ -84,7 +84,7 @@ public final class Bank {
         secondOwner.newFund(year, 2, coins2, coins1);
         InvestmentFund fund = new InvestmentFund(FUND_STARTING_VALUE, firstOwner, secondOwner);
         while (!fund.isClosed())
-            fund.nextMonth();
+        				fund.nextMonth();
         int[] revenues = fund.computeRevenues();
         firstOwner.fundClosed(fund.getTime(), revenues[0], revenues[1]);
         secondOwner.fundClosed(fund.getTime(), revenues[1], revenues[0]);
