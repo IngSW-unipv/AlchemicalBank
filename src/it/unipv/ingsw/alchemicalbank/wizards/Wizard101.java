@@ -3,19 +3,21 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
+// Vergine Andrea
 
-// Alessandro Carbone, matr. 457362
+public class Wizard101 extends Wizard {
 
-
-public class CarboneAlessandro457362 extends Wizard {
+	public Wizard101() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if(fundValue<=500)
+		if(fundValue < 100) {
 			return Decision.KEEP_FUND;
-		else
+		} else {
 			return Decision.LIQUIDATE_FUND;
+		}
 	}
 
 }

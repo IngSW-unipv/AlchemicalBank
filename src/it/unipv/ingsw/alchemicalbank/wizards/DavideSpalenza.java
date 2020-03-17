@@ -3,19 +3,14 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
+//Davide Spalenza 454097
 
-// Alessandro Carbone, matr. 457362
-
-
-public class CarboneAlessandro457362 extends Wizard {
+public class DavideSpalenza extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if(fundValue<=500)
-			return Decision.KEEP_FUND;
-		else
-			return Decision.LIQUIDATE_FUND;
+		if(fundValue<=18500) return Decision.KEEP_FUND;
+		else return Decision.LIQUIDATE_FUND;
 	}
 
 }

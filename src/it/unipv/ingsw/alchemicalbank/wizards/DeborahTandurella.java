@@ -1,21 +1,23 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
 import it.unipv.ingsw.alchemicalbank.Decision;
+
+
+
+// Deborah Tandurella 455299
+
+
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-
-// Alessandro Carbone, matr. 457362
-
-
-public class CarboneAlessandro457362 extends Wizard {
+public class DeborahTandurella extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if(fundValue<=500)
+		if(fundValue < 1000) {
 			return Decision.KEEP_FUND;
-		else
+		} else {
 			return Decision.LIQUIDATE_FUND;
+		}
 	}
 
 }
