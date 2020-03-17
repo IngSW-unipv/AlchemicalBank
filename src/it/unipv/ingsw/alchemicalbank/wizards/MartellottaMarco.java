@@ -26,7 +26,7 @@ public class MartellottaMarco extends Wizard {
 			}
 		}
 		
-		if(ifFirst && (timespan <= 7)) {
+		if(ifFirst && (timespan <= 6)) {
 			return Decision.KEEP_FUND;
 		} else if (!ifFirst && (timespan <= 7)) {
 			return Decision.KEEP_FUND;
