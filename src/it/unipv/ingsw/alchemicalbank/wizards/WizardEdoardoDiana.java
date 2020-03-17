@@ -5,7 +5,7 @@ import java.util.Random;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-//Edoardo Diana 458487
+//Edoardo Diana  458487
 
 public class WizardEdoardoDiana extends Wizard {
 
