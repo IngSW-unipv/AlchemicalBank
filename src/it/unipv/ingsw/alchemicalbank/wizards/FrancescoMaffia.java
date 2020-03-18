@@ -8,7 +8,7 @@ public class FrancescoMaffia extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue<30000)
+		if (fundValue<28000)
 			return Decision.KEEP_FUND;
 		else 
 			return Decision.LIQUIDATE_FUND;
