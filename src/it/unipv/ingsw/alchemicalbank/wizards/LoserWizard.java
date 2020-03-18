@@ -3,7 +3,7 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class LooserWizard extends Wizard {
+public class LoserWizard extends Wizard {
 	private long mcoin;
 	private long ycoin;
 	private int start;
