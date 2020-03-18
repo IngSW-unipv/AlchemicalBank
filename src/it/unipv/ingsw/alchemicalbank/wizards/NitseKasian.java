@@ -5,13 +5,13 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //Kasian-Andriy Nitse 
 
 public class NitseKasian extends Wizard {
-
-	@Override
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+        /* Do nothing */
+    }
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue<100)
+		if (fundValue<16384)
 			return Decision.KEEP_FUND;
 		else
 			return Decision.LIQUIDATE_FUND;
 	}
-
 }
