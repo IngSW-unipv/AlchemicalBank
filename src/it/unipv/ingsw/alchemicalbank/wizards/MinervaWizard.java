@@ -11,6 +11,7 @@ public class MinervaWizard extends Wizard {
 
         if(timespan==10||timespan==11) return Decision.LIQUIDATE_FUND;
         else return Decision.KEEP_FUND;
+        //test
 
     }
 
