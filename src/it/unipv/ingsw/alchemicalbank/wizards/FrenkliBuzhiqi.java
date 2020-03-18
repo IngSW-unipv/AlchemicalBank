@@ -9,8 +9,13 @@ public class FrenkliBuzhiqi extends Wizard{
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(fundValue > 150 && timespan > 8) {
+			return Decision.LIQUIDATE_FUND;
+		} else {
+			return Decision.KEEP_FUND;
+		}
+		
 	}
 
 }
