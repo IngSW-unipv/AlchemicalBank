@@ -9,7 +9,7 @@ public class MinervaWizard extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 
-        if(timespan==10||timespan==9) return Decision.LIQUIDATE_FUND;
+        if(timespan==11||timespan==10) return Decision.LIQUIDATE_FUND;
         else return Decision.KEEP_FUND;
         //test prova
 
