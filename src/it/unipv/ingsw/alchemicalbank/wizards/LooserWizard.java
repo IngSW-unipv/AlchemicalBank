@@ -17,7 +17,7 @@ public class LooserWizard extends Wizard {
 			return Decision.KEEP_FUND;
 			
 		} else {
-			if (timespan ==12) {
+			if (timespan ==10) {
 				return Decision.LIQUIDATE_FUND;
 			}
 			return Decision.KEEP_FUND;
