@@ -25,9 +25,8 @@ public class Paperino extends Wizard {
 		long diff =  yourCoins - partnerCoins;
 		
 		if(diff < 0)
-			diff *= -1;
-		
-		if(0 <diff &&   diff < 1000)
+			x = 0;		
+		else if(0 <diff &&   diff < 1000)
 			x=5;
 		else if(0 <diff && diff < 2000)
 			x=4;
