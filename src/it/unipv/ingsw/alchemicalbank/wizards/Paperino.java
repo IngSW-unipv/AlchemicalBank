@@ -5,45 +5,55 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Paperino extends Wizard {
 	
-	
-	//Variabili per gestione degli anni
-	private int wichYearIsNow = 0;
-	private int lastTimespanIveKeep = 0;
-	private int firstTimeInTheYear = 0;
-	private int firstYear = 0;
+
 	
 	
 	//Variabili per quale mago e tot soldi
 	private int qualeMagoSono=0; //1 o 2, riferito al singolo anno
-	private int totalGainTillNow = 0; //La somma delle vincite fatte nell'anno
-	private int quantoDovevoGuadagnareFinoAlTurnoPrecedente = 0;
-	private int x = 0; //Numero di volte che mi hanno chiuso la porta in faccia * 2
+	private int x = 0; //
 	
 	
 	@Override
 	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-		// TODO Auto-generated method stub
+		
 		qualeMagoSono = order;		
-		//Ho la totalità dei miei soldi e di quelli dell'avversario
+		
+		
+		//Se la sono molto più ricco dell'altro, è più intelligente, continuare a tentare fino al masssimo, anche
+		//se perdo, avrò comunque vinto io e sarò salito di più
+
+		long diff =  yourCoins - partnerCoins;
+		
+		if(diff < 0)
+			diff *= -1;
+		
+		if(0 <diff &&   diff < 1000)
+			x=5;
+		else if(0 <diff && diff < 2000)
+			x=4;
+		else if(0 <diff && diff < 3000)
+			x=3 ;
+		else if(0 <diff && diff < 10000)
+			x=2;
+		else if(0 < diff && diff < 30000)
+			x=1;
+		else
+			x=1;
+		
 	}
 	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
 		//Devo capire se l'altro ha dismesso
-	
-		if(firstYear != 0 && lastTimespanIveKeep < timespan) {
-			firstTimeInTheYear = 0; // Vuol dire che è il nuovo anno per me
-									// dopo che mi hanno chiuso la porta in faccia
-		}
 		
 		//Logica se sono il primo mago
-		if(qualeMagoSono == 1 && timespan == (7 + x) ) {
+		if(qualeMagoSono == 1 && timespan >= (11 - x) ) {
 			return Decision.LIQUIDATE_FUND;
 		}
 
 		//Logica se sono il secondo mago
-		if(qualeMagoSono == 2 && timespan == (8)  ) {
+		if(qualeMagoSono == 2 && timespan >= (12 - x )  ) {
 			return Decision.LIQUIDATE_FUND;
 		}
 		
@@ -55,13 +65,6 @@ public class Paperino extends Wizard {
 	@Override
 	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
 		// TODO Auto-generated method stub
-		totalGainTillNow += yourRevenue;
-		wichYearIsNow++;
-		if(yourRevenue < partnerRevenue) {
-			x += 2;
-			if(x >= 6)
-				x = 0;
-		}		
 	}
 	
 	
