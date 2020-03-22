@@ -13,7 +13,7 @@ public class MimmoMerlino extends Wizard {
     public void newFund(int year, int order, long yourCoins, long partnerCoins) {
 		mioOrdine=order; //ottengo il mio ordine di scelta
 		
-		if(yourCoins > 2.3*partnerCoins) //cerco di capire se posso rischiare guardando la differenza tra i guadagni del mio mago e quelli dell'avversario
+		if(yourCoins > 2.5*partnerCoins) //cerco di capire se posso rischiare guardando la differenza tra i guadagni del mio mago e quelli dell'avversario
 			differenza=true; 
 		else 
 			differenza=false;
