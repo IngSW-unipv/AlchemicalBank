@@ -6,6 +6,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class StefanoAlbini extends Wizard {
 	
 	//Stefano Albini 435643
+	//Alessio Bianchi 436392
 	
 	private int order;
 	private int closingMonth;
