@@ -3,17 +3,16 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
+/*
+ * Francesco Filpa
+ * 460927
+ */
 
-//Matteo Tagliaferri 445953
-
-public class MatteoTagliaferri445953 extends Wizard {
+public class JohnNash extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(fundValue<18000 && timespan<10) {
-			return Decision.KEEP_FUND;
-		}
-		else return Decision.LIQUIDATE_FUND;
+		return Decision.LIQUIDATE_FUND;
 	}
 
 }
