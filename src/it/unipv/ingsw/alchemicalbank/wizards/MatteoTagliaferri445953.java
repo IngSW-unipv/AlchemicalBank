@@ -10,7 +10,7 @@ public class MatteoTagliaferri445953 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(fundValue<1000) {
+		if(fundValue<18000 && timespan<10) {
 			return Decision.KEEP_FUND;
 		}
 		else return Decision.LIQUIDATE_FUND;
