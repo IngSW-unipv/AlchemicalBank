@@ -24,9 +24,7 @@ public class Paperino extends Wizard {
 
 		long diff =  yourCoins - partnerCoins;
 		
-		if(diff < 0 || yourCoins < 2000) //Se sto perdendo od ho pochi soldi (fase iniziale)
-			x = 0;		 				// meglio rischiare
-		else if(0 <diff &&   diff < 1000) //Se sto vincendo, per decidere quanto rischi,
+		if(0 <diff &&   diff < 1000) //Se sto vincendo, per decidere quanto rischi,
 			x=5;						  //meglio decidere in base a quanto sto vincendo.	
 		else if(0 <diff && diff < 2000)	 //Se sto vincendo di tanto, tanto vale provare ad aumentare 
 			x=4;						 //il gap
