@@ -5,7 +5,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Paperino extends Wizard {
 	
-	//Guglielmo Cassini   458027
+	//Guglielmo Cassini 458027
 	
 	
 	//Variabili per quale mago e tot soldi
