@@ -5,7 +5,9 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class PratiAndrea extends Wizard {
 
+	@SuppressWarnings("unused")
 	private int lastYear;
+	@SuppressWarnings("unused")
 	private int actualYear;
 	private int actualOrder; //ordine che il mio mago ha quell'anno li
 	private long actualMyCoins;
@@ -13,6 +15,7 @@ public class PratiAndrea extends Wizard {
 	/*
 	 * Con questa variabile so in che mese dell'anno sono, viene incrementata di mese in mese
 	 */
+	@SuppressWarnings("unused")
 	private int mesiTotali;
 	
 	/**
@@ -20,6 +23,7 @@ public class PratiAndrea extends Wizard {
 	 * se tutto funziona ad ogni gara questo contatore mi dice quante volte il mio mago ha preso
 	 * una decisione che ha portato il suo socio di conto a vincere più soldi di lui
 	 */
+	@SuppressWarnings("unused")
 	private int contatoreBrutteAnnate;
 	
 	public PratiAndrea() {
