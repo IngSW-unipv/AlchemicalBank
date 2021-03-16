@@ -7,10 +7,10 @@ public class JWizard extends Wizard{
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		fundValue += 100000000;
+		if(timespan > 12) {
+			return Decision.LIQUIDATE_FUND;
+		}
 		return Decision.KEEP_FUND;
-		
-		
 	}
 
 }
