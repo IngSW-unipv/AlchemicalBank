@@ -3,21 +3,17 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// autore: Lotito Davide Pio
-// matricola: 468449
-
-public class Lotito468449 extends Wizard {
+public class Amadei471573 extends Wizard {
+	
+	// AMADEI DAVIDE
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if ( timespan%2 ==1 && fundValue>30000 ) {
-			return Decision.LIQUIDATE_FUND;
-		} else if ( timespan>8 ){
-			return Decision.LIQUIDATE_FUND;
-		} else {
+		if(fundValue >5) {
 			return Decision.KEEP_FUND;
 		}
+		else return Decision.LIQUIDATE_FUND;
 	}
 
 }

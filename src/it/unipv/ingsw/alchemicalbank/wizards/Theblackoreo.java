@@ -11,11 +11,14 @@ public class Theblackoreo extends Wizard {
 
 	//TAGLIANI FABIO 472089
 
+	private int i;
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
+		i = (int) (Math.random()*100);
 		
-		if(timespan == 11) {
+		if(timespan == 11 && i < 50) {
 			
 			return Decision.LIQUIDATE_FUND;
 		}
@@ -24,7 +27,6 @@ public class Theblackoreo extends Wizard {
 			
 			return Decision.KEEP_FUND;
 		}
-		
 	}
 	
 	
