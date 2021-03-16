@@ -1,10 +1,5 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 80058a9f70d0b5a9b1423ddfc573d225f56b21f5
-
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
