@@ -8,7 +8,7 @@ public class Moro470598 extends Wizard{
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if(timespan >= 4){
+		if(timespan >= 11){
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
