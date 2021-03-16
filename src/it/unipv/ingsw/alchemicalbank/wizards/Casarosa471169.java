@@ -8,7 +8,7 @@ public class Casarosa471169  extends Wizard
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) 
 	{
-		if (fundValue>200)
+		if (timespan > 10)
 		{
 			return Decision.LIQUIDATE_FUND;	
 		}

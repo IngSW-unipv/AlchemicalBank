@@ -1,22 +1,20 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+import com.sun.org.apache.xpath.internal.FoundIndex;
+
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-//Studente: Alessandro Terracciano
-//Mat. n° 467144
+// Francesco Marzullo
 
-public class Terracciano467144 extends Wizard {
+public class Marzullo457273 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		if(timespan>10)
-		{
+		if (fundValue > 130) {
 			return Decision.LIQUIDATE_FUND;
-		}
-		else
-		{
+		} else {
 			return Decision.KEEP_FUND;
 		}
 	}
