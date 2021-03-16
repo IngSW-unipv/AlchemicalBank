@@ -8,7 +8,7 @@ public class Gamba467951 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		if (fundValue>400) {
+		if (fundValue>200) {
 			return Decision.LIQUIDATE_FUND;
 		}
 		else {
