@@ -3,6 +3,8 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
+// Claudio Cusano 123456
+
 public class Cusano123456 extends Wizard {
 
 	@Override
