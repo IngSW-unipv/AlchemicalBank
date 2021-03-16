@@ -11,8 +11,8 @@ public class Lotito468449 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if ( timespan%2 ==1 ) {
-			return Decision.KEEP_FUND;
+		if ( timespan%2 ==1 && fundValue>30000 ) {
+			return Decision.LIQUIDATE_FUND;
 		} else if ( timespan>8 ){
 			return Decision.LIQUIDATE_FUND;
 		} else {
