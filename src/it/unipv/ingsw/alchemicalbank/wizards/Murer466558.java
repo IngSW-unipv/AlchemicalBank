@@ -10,8 +10,11 @@ public class Murer466558 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
-		return null;
+		if (fundValue > 100) {
+			return Decision.LIQUIDATE_FUND;
+		} else {
+			return Decision.KEEP_FUND;
+		}
 	}
 
 }
