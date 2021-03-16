@@ -6,14 +6,11 @@ import it.unipv.ingsw.alchemicalbank.*;
 
 public class Vacchini467102 extends Wizard{
 	private long myCoins, hisCoins;
-	private int order, time, myRevenue, hisRevenue;
-	
+	private int order, time, myRevenue, hisRevenue, year;
 	
 	@Override
-    public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(this.order == 1 && timespan == 11)
-			return Decision.LIQUIDATE_FUND;
-		else if (this.order == 2 && timespan == 10)
+    public Decision askKeepOrLiquidate(int fundValue, int timespan) {		
+		if(timespan == 10 && timespan == 11) // soluzione a breve termine con il miglior guadagno supponendo di essere arrivati in fondo e quindi di avere contro uno che aspetta
 			return Decision.LIQUIDATE_FUND;
 		else
 			return Decision.KEEP_FUND;
@@ -24,6 +21,7 @@ public class Vacchini467102 extends Wizard{
 		this.myCoins = yourCoins;
 		this.hisCoins = partnerCoins;
 		this.order = order;
+		this.year = year;
     }
 	
 	@Override
