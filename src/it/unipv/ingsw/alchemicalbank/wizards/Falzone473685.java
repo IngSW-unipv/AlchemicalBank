@@ -14,5 +14,15 @@ public class Falzone473685 extends Wizard {
 		//prova
 		return Decision.KEEP_FUND;
 	}
+	
+	@Override
+	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+		
+	}
+	
+	@Override
+	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+		
+    }
 
 }
