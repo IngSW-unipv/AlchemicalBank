@@ -10,7 +10,7 @@ public class Vacchini467102 extends Wizard{
 	
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {		
-		if(timespan == 10 && timespan == 11) //soluzione di miglior guadagno tenendo conto dei patient
+		if(timespan == 10 && timespan == 11) // soluzione a breve termine con il miglior guadagno supponendo di essere arrivati in fondo e quindi di avere contro uno che aspetta
 			return Decision.LIQUIDATE_FUND;
 		else
 			return Decision.KEEP_FUND;
