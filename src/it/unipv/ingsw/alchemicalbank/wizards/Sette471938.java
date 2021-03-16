@@ -1,21 +1,21 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+
+//Gabriele Francesco Sette 
+
+
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class Cignoli469989 extends Wizard {
+public class Sette471938 extends Wizard {
 
-	//cignoli
-	
-	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(timespan >= 11){
+		if (fundValue > 100) {
 			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
 		}
-	
+		else
+			return Decision.KEEP_FUND;
 	}
 
 }
