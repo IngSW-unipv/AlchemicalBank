@@ -3,13 +3,15 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class Diegoli472668 extends Wizard {
+public class Cignoli469989 extends Wizard {
 
-	//Diegoli
+	//cignoli
 	
+	
+	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-			if (timespan == 11) return Decision.LIQUIDATE_FUND;
-			else return Decision.KEEP_FUND;	
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
