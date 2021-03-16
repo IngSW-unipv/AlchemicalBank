@@ -1,9 +1,12 @@
+/**
+ * @author Amato Francesco 466558
+ */
+
 package it.unipv.ingsw.alchemicalbank.wizards;
 
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-//Wizard: AmatoFrancesco 468497
 
 public class Amato468497_Wizard extends Wizard{
 
