@@ -6,7 +6,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //Studente: Alessandro Terracciano
 //Mat. n° 467144
 
-public class TerraccianoAlessandro extends Wizard {
+public class Terracciano467144 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
