@@ -11,6 +11,4 @@ public class Bottini471395 extends Wizard{
 			return Decision.KEEP_FUND;
 		}
 	}
-	
-
 }
