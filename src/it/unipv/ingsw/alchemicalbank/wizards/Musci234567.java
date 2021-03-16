@@ -9,7 +9,7 @@ public class Musci234567 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 500) {
+		if (timespan == 11) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;

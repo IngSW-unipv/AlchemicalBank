@@ -6,13 +6,9 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 /**
  * A wizard that wants his money right now.
  */
-public class Scardovi470583Wizard extends Wizard {
+public class GreedyWizard extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-    	
-		if (timespan == 8 || timespan == 9) {
-			return Decision.LIQUIDATE_FUND;
-		} 
-		return Decision.KEEP_FUND;
+        return Decision.LIQUIDATE_FUND;
     }
 }
