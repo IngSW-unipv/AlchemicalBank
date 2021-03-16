@@ -3,17 +3,23 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// Vecchio Angelo 466550
+//Aiman Al Masoud 472462
 
-public class Vecchio466550 extends Wizard {
+public class AimanAlMasoud472462 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan == 12) {
+		//fundValue can be derived from timespan.
+		
+		//if fund is old enough, liquidate fund
+		if(timespan>=6) {
 			return Decision.LIQUIDATE_FUND;
-		} else {
-			return null;
 		}
+		
+		//else if fund is too young, keep it
+		return Decision.KEEP_FUND;
+		
+		
 	}
 
 }
