@@ -8,7 +8,7 @@ public class Vacchini467102 extends Wizard{
 	
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(timespan == 8 || timespan == 9)
+		if(fundValue >200)
 			return Decision.LIQUIDATE_FUND;
 		else
 			return Decision.KEEP_FUND;
