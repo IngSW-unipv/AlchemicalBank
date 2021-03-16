@@ -7,7 +7,7 @@ public class BlinduWizard extends Wizard{
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 1000 && Math.random() > 0.70) {
+		if (timespan > 14) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
