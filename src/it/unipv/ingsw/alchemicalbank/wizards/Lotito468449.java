@@ -7,13 +7,13 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 // matricola: 468449
 
 public class Lotito468449 extends Wizard {
-
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if ( timespan%2 ==1 ) {
-			return Decision.KEEP_FUND;
-		} else if ( timespan>8 ){
+		if ( timespan%2 ==1 && fundValue>2000 ) {
+			return Decision.LIQUIDATE_FUND;
+		} else if ( timespan>=10 ){
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
