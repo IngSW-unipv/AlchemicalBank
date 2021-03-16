@@ -10,17 +10,17 @@ public class Scardovi470583Wizard extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
     	
-    	
+		if (timespan % 2 == 1) {
+			return Decision.KEEP_FUND;
+		} 
 
     	
-		if (timespan == 9) {
+		if (timespan == 8) {
 			return Decision.LIQUIDATE_FUND;
 		} 
-		if (timespan == 10) {
-			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
-		}
+
+			
 		
+		return Decision.KEEP_FUND;
     }
 }
