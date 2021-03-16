@@ -11,8 +11,18 @@ public class Falzone473685 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		//prova
+		//prova 2
 		return Decision.KEEP_FUND;
 	}
+	
+	@Override
+	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+		
+	}
+	
+	@Override
+	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+		
+    }
 
 }
