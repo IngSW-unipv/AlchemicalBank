@@ -8,7 +8,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class Nucera445793 extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (fundValue > 4095) {
+        if (timespan == 11 ) {
             return Decision.LIQUIDATE_FUND;
         }
         else{
