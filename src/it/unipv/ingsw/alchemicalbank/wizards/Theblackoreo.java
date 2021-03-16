@@ -1,23 +1,36 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+import java.util.List;
+import java.util.Map;
+
+import it.unipv.ingsw.alchemicalbank.Bank;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// autore: Lotito Davide Pio
-// matricola: 468449
+public class Theblackoreo extends Wizard {
 
-public class Lotito468449 extends Wizard {
+	//TAGLIANI FABIO 472089
 
+	private int i;
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if ( timespan%2 ==1 && fundValue>30000 ) {
+		i = (int) (Math.random()*100);
+		
+		if(timespan == 11 && i < 50) {
+			
 			return Decision.LIQUIDATE_FUND;
-		} else if ( timespan>8 ){
-			return Decision.LIQUIDATE_FUND;
-		} else {
+		}
+		
+		else {
+			
 			return Decision.KEEP_FUND;
 		}
 	}
+	
+	
+	
+	
 
 }

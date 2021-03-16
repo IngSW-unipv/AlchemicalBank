@@ -7,12 +7,18 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //Mat. n° 467144
 
 public class Terracciano467144 extends Wizard {
-
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		//Solo per provare il commit e il push, fingo di essere un GreedyWizard
-		return Decision.LIQUIDATE_FUND;
+		if(timespan<3)
+		{
+			return Decision.LIQUIDATE_FUND;
+		}
+		else
+		{
+			return Decision.KEEP_FUND;
+		}
 	}
 
 }
