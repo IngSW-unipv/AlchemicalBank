@@ -3,18 +3,16 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class Paredes460294 extends Wizard{
+// Marco Marchesi 123456
 
-	//Paredes Chacon Percy Jesus 460294
+public class Marchesi456728 extends Wizard {
 
+	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan == 12) {
+		if(timespan == 11) {
 			return Decision.LIQUIDATE_FUND;
-		}else {
+		} else {
 			return Decision.KEEP_FUND;
 		}
 	}
-	
-	
-
 }
