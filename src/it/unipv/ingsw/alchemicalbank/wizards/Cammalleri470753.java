@@ -7,8 +7,12 @@ public class Cammalleri470753 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		return null;
+		if (timespan >10) {
+			return Decision.LIQUIDATE_FUND;
+		} else {
+			return Decision.KEEP_FUND;
+	}
+		}
 	}
 
-}
+
