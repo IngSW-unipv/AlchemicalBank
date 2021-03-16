@@ -1,21 +1,18 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// Francesco Marzullo
+// CREMONESI ALESSANDRO WIZARD 472563
 
-public class Marzullo457273 extends Wizard {
+public class Cremonesi472563 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if (fundValue > 130 || timespan == 6) {
+		
+		if(timespan >= 10 ) {
 			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
-		}
+		} else return Decision.KEEP_FUND;
 	}
 
 }
