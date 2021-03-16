@@ -1,25 +1,34 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-<<<<<<< HEAD
+import java.util.List;
+import java.util.Map;
 
-=======
->>>>>>> 80058a9f70d0b5a9b1423ddfc573d225f56b21f5
-
+import it.unipv.ingsw.alchemicalbank.Bank;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// Francesco Marzullo
+public class Theblackoreo extends Wizard {
 
-public class Marzullo457273 extends Wizard {
+	//TAGLIANI FABIO 472089
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if (fundValue > 130 || timespan == 6) {
+		
+		
+		if(timespan == 11) {
+			
 			return Decision.LIQUIDATE_FUND;
-		} else {
+		}
+		
+		else {
+			
 			return Decision.KEEP_FUND;
 		}
+		
 	}
+	
+	
+	
+	
 
 }
