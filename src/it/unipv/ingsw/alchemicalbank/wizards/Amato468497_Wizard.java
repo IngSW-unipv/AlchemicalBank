@@ -24,16 +24,10 @@ public class Amato468497_Wizard extends Wizard{
 	//aperto il fondo, per poi riuscire a vincere l'intero "tournament"
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
-		if(this.order == 2 && timespan == 11)
-			return Decision.LIQUIDATE_FUND;
-		else if (this.order == 1 && timespan == 10)
-			return Decision.LIQUIDATE_FUND;
-		else if (this.order == 2 && myRevenue>hisRevenue)
-			return Decision.LIQUIDATE_FUND;
-		else
-			return Decision.KEEP_FUND;
-		
+		//UPDATE IN CORSO
+			if (((myRevenue+hisRevenue)/2)>(fundValue+hisRevenue)) return Decision.LIQUIDATE_FUND;
+			else if (timespan==11) return Decision.LIQUIDATE_FUND;
+			else return Decision.KEEP_FUND;
     }
 	
 	/* Metodi per ricavare le informazioni sulle mosse e le informazioni
