@@ -5,10 +5,11 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Diegoli472668 extends Wizard {
 
-	@Override
+	//Diegoli
+	
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		return null;
+			if (timespan == 11) return Decision.LIQUIDATE_FUND;
+			else return Decision.KEEP_FUND;	
 	}
 
 }
