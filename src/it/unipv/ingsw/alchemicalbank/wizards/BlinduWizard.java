@@ -3,17 +3,16 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class Gamba467951 extends Wizard {
+public class BlinduWizard extends Wizard{
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if (timespan>7) {
+		if (fundValue > 1000 && Math.random() > 0.70) {
 			return Decision.LIQUIDATE_FUND;
-		}
-		else {
+		} else {
 			return Decision.KEEP_FUND;
 		}
+		
 	}
 
 }
