@@ -3,22 +3,19 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-//Studente: Alessandro Terracciano
-//Mat. n° 467144
+//Wizard: AmatoFrancesco 468497
 
-public class Terracciano467144 extends Wizard {
-	
+public class Amato468497_Wizard extends Wizard{
+
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if(timespan<3)
-		{
-			return Decision.LIQUIDATE_FUND;
-		}
-		else
-		{
+		
+		if ((fundValue > 100) || (timespan>6))
+				return Decision.LIQUIDATE_FUND;
+		else if ((fundValue<=100) || (timespan<5))
 			return Decision.KEEP_FUND;
-		}
+		else return Decision.LIQUIDATE_FUND;
+		
 	}
 
 }
