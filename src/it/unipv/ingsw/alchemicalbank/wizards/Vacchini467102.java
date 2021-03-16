@@ -8,7 +8,9 @@ public class Vacchini467102 extends Wizard{
 	
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if((fundValue > 500) && (Math.random() > 0.6)) // soglia minima con tendenza al rischio
+		if(timespan == 11 || timespan == 10)
+			return Decision.LIQUIDATE_FUND;
+		else if((fundValue > 100) && (Math.random() > 0.6))  // soglia minima con tendenza al rischio
 			return Decision.LIQUIDATE_FUND;
 		else
 			return Decision.KEEP_FUND;
