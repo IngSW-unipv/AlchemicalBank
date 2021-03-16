@@ -7,7 +7,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //Mat. n° 467144
 
 public class Terracciano467144 extends Wizard {
-
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
