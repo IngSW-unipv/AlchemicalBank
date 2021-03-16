@@ -10,8 +10,12 @@ public class Cignoli469989 extends Wizard {
 	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		return null;
+		if(timespan >= 11){
+			return Decision.LIQUIDATE_FUND;
+		} else {
+			return Decision.KEEP_FUND;
+		}
+	
 	}
 
 }
