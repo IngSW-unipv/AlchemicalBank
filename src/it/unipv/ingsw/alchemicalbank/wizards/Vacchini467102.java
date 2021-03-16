@@ -12,6 +12,8 @@ public class Vacchini467102 extends Wizard{
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {		
 		if(timespan == 10 && timespan == 11) // soluzione a breve termine con il miglior guadagno supponendo di essere arrivati in fondo e quindi di avere contro uno che aspetta
 			return Decision.LIQUIDATE_FUND;
+		else if(10*Math.pow(2, this.time)/this.year >= (this.hisCoins + 10*Math.pow(2, this.time))/this.year) // cerco di intuire dalla media dei guadagni qual è il go-to round per ritirare
+			return Decision.LIQUIDATE_FUND;
 		else
 			return Decision.KEEP_FUND;
     }
