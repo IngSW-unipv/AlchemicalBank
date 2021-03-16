@@ -9,10 +9,18 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class Scardovi470583Wizard extends Wizard {
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 1000) {
+    	
+    	
+
+    	
+		if (timespan == 9) {
+			return Decision.LIQUIDATE_FUND;
+		} 
+		if (timespan == 10) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
 		}
+		
     }
 }
