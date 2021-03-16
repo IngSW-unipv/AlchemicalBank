@@ -1,25 +1,25 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 80058a9f70d0b5a9b1423ddfc573d225f56b21f5
-
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// Francesco Marzullo
+//Aiman Al Masoud 472462
 
-public class Marzullo457273 extends Wizard {
+public class AimanAlMasoud472462 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		// TODO Auto-generated method stub
-		if (fundValue > 130 || timespan == 6) {
+		//fundValue can be derived from timespan.
+		
+		//if fund is old enough, liquidate fund
+		if(timespan>=6) {
 			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
 		}
+		
+		//else if fund is too young, keep it
+		return Decision.KEEP_FUND;
+		
+		
 	}
 
 }
