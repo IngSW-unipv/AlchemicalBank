@@ -1,19 +1,16 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
+import it.unipv.ingsw.alchemicalbank.*;
 
-import it.unipv.ingsw.alchemicalbank.Decision;
-import it.unipv.ingsw.alchemicalbank.Wizard;
-
-// Mirto Musci 123456
-
-public class Musci234567 extends Wizard {
-
+public class Bottini471395 extends Wizard{
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan == 11) {
+		//Bottini471395
+		if(fundValue>4000 && timespan>=6) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
 		}
 	}
+	
 
 }
