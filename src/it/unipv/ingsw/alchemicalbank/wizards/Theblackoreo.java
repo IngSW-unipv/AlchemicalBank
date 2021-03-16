@@ -10,15 +10,12 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class Theblackoreo extends Wizard {
 
 	//TAGLIANI FABIO 472089
-	
-	public Bank b;
 
-	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
 		
-		if(timespan == 10 || timespan == 11) {
+		if(timespan == 11) {
 			
 			return Decision.LIQUIDATE_FUND;
 		}
