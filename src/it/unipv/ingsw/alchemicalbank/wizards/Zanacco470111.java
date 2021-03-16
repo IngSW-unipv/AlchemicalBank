@@ -6,7 +6,7 @@ public class Zanacco470111 extends Wizard {
 	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
+		////prova
 		
 		if(timespan > 7) {
 			return Decision.LIQUIDATE_FUND;
