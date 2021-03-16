@@ -1,16 +1,15 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import it.unipv.ingsw.alchemicalbank.*;
+import it.unipv.ingsw.alchemicalbank.Decision;
+import it.unipv.ingsw.alchemicalbank.Wizard;
 
-/**
- * @author Daniele Murer 466558
- */
+// Vecchio Angelo 466550
 
-public class Murer466558 extends Wizard {
+public class Vecchio466550 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 100) {
+		if (fundValue > 400) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
