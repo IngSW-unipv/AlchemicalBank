@@ -1,6 +1,5 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import com.sun.org.apache.xpath.internal.FoundIndex;
 
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
