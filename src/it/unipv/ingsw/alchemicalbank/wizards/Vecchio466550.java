@@ -9,7 +9,7 @@ public class Vecchio466550 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan == 12) {
+		if (timespan >= 10) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return null;
