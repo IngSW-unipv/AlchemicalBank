@@ -20,28 +20,31 @@ import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
 //Aiman Al Masoud 472462
+//This wizard takes a statistical approach on the matter of liquidating his fund or not.
 
 public class AimanAlMasoud472462 extends Wizard {
 
+	
+	//critical/threshold fund values of (most) of the other contendents.
+	//ie: the fund values at which each other wizard liquidates their funds.
+	ArrayList<Integer> fundValues; 
+	
+	public AimanAlMasoud472462() {
+		//get all of the critical fund values
+		fundValues = getFundValues();
+	}
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		//get all fund values
-		ArrayList<Integer> fundValues = getFundValues();
-		
-		//get average value of fundValues
-		int averageThresholdFundValue = 0;
-		for(Integer val : fundValues) {
-			averageThresholdFundValue += val;
-		}
-		averageThresholdFundValue = averageThresholdFundValue/fundValues.size();
-		
-		if(fundValue >= getRandFundValue()) {
+		//if getDistribution(fundValue) > 0.5, it's likely that 
+		//my opponent would liquidate if given a chance to, 
+		//so I'll liquidate before they can do it.
+		if(getDistribution(fundValue)>=0.5) {
 			return Decision.LIQUIDATE_FUND;
 		}else {
 			return Decision.KEEP_FUND;
 		}
-		
 	}
 	
 	
@@ -51,10 +54,11 @@ public class AimanAlMasoud472462 extends Wizard {
 		return (int)(20*Math.pow(2, timespan-1));
 	}
 	
-	//read other threshhold values 
+	//read threshhold fund values from other Wizards
 	public ArrayList<Integer> getFundValues(){
 		ArrayList<Integer> fundValues = new ArrayList<Integer>();
 		
+		//list all of the Wizards' source code files
 		for(File file : new File("./src/it/unipv/ingsw/alchemicalbank/wizards").listFiles()) {
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -62,7 +66,7 @@ public class AimanAlMasoud472462 extends Wizard {
 				while((lineBuffer = reader.readLine())!=null) {
 					if(lineBuffer.contains("fund")) {
 						int numericValue =parseString(lineBuffer);
-						if(numericValue>0 && numericValue<9999) {
+						if(numericValue>0 && numericValue<41000) {
 							fundValues.add(numericValue);
 						}
 					}else if(lineBuffer.contains("timespan")) {
@@ -80,7 +84,7 @@ public class AimanAlMasoud472462 extends Wizard {
 	}
 	
 	
-	//parse string for number
+	//parse string for a number
 	public int parseString(String line) {
 		String buffer = "";
 		for(int i = 0; i<line.length(); i++) {
@@ -97,13 +101,12 @@ public class AimanAlMasoud472462 extends Wizard {
 	}
 	
 	
-	//get a sorted (in descending order, biggest values first) 
-	//list of entries. Each entry is a fundValue and its absolute frequency
+	//sort by fund value (which is the KEY of these Entries). In ascending order.
 	public ArrayList<Entry<Integer, Integer>> getSortedFreqList() {
 		
 		  HashMap<Integer, Integer> freqMap = new HashMap<Integer, Integer>();
 			//get all frequencies
-			for(Integer num : getFundValues()) {
+			for(Integer num : fundValues) {
 				if(freqMap.containsKey(num)) {
 					freqMap.put(num, freqMap.get(num)+1);
 				}else {
@@ -117,28 +120,29 @@ public class AimanAlMasoud472462 extends Wizard {
 			Collections.sort(list, new Comparator<Entry>() {
 				@Override
 				public int compare(Entry arg0, Entry arg1) {
-					return (int)arg1.getValue() - (int)arg0.getValue();
+					return (int)arg0.getKey() - (int)arg1.getKey();
 				}
 			});
 			
 		return list;
 	}
 	
-	//random distribution of fundValues with relative frequencies 
-	public int getRandFundValue() {
+	
+	//F() distribution function. Input= fundValue, output= cumulative frequency
+	public Float getDistribution(int fundValue) {
 		ArrayList<Entry<Integer, Integer>> list = getSortedFreqList();
-		Random rand = new Random();
+		float accumul = 0;
 		
 		for(Entry entry : list) {
 			Integer value = (Integer)entry.getValue();
-			Integer totNumFunds = (Integer)getFundValues().size();
-			float relativeFreqOfValue = (float)value/totNumFunds;
-			if(rand.nextDouble() >= relativeFreqOfValue) {
-				return (int) entry.getKey();
-		}
+			accumul += (float)value/fundValues.size();
+			
+			if(fundValue <= (Integer)entry.getKey()) {
+				return accumul;
+			}
 		}
 		
-		return (int)list.get(0).getKey();
+		return accumul;
 	}
 	
 	
@@ -147,16 +151,11 @@ public class AimanAlMasoud472462 extends Wizard {
 	public static void main(String args[]) {
 		
 		AimanAlMasoud472462 wizard = new AimanAlMasoud472462();
-	
-		//for(Entry e : wizard.getSortedFreqList()) {
-		//	System.out.println(e.getKey()+" with freq: "+e.getValue()+"/"+wizard.getFundValues().size());
-		//}
 		
-		
-		System.out.println(wizard.getRandFundValue());
 		
 	}
 	*/
+	
 	
 
 }
