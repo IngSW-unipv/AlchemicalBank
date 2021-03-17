@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -76,8 +77,10 @@ public class AimanAlMasoud472462 extends Wizard {
 						}
 					}
 				}
+				reader.close();
 			} catch (Exception e) {
-			}	
+			}
+			
 		}
 		
 		return fundValues;
