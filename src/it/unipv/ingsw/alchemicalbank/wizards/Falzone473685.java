@@ -15,7 +15,9 @@ public class Falzone473685 extends Wizard {
 	private int currentYear; //anno corrente
 	private int months[]=new int[5]; //[8|9|10|11|12]
 	
-	
+	public Falzone473685() {
+		initMonths();
+	}
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		if(timespan==11)
@@ -38,9 +40,9 @@ public class Falzone473685 extends Wizard {
 	
 	@Override
 	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-		if(year==1) {
+		/*if(year==1) {
 			initMonths();
-		}
+		}*/
 		this.myCoins = yourCoins;
 		this.partnerCoins = partnerCoins;
 		this.myCurrentOrder = order;
