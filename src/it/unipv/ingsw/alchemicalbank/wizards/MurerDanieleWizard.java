@@ -6,7 +6,7 @@ import it.unipv.ingsw.alchemicalbank.*;
  * @author Daniele Murer 466558
  */
 
-public class Murer466558 extends Wizard {
+public class MurerDanieleWizard extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
