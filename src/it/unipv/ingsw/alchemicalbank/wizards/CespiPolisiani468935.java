@@ -6,18 +6,21 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class CespiPolisiani468935 extends Wizard {
 	
+	private int actualYear;
 	
-	public int getRandomTimespan(int minTimespan, int maxTimespan) {
-		return (int)((Math.random() * (maxTimespan - minTimespan)) + minTimespan);
+	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+		this.actualYear = year;
 	}
 	
-	public Decision  askKeepOrLiquidate(int fundValue, int timespan) {
-		int randomTimespan = getRandomTimespan(7,12);
-		
-		if (timespan == randomTimespan) {
+	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+		if ((this.actualYear < 10) && timespan >= 11) {
+			return Decision.LIQUIDATE_FUND;
+		} else if ((this.actualYear > 10) && (timespan > 6)) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
 		}
 	}
+	
+
 }
