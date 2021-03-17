@@ -3,16 +3,17 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-// Nucera Rosa Maria 445793
+// Denys Mehley 459372
 
-public class Nucera445793 extends Wizard {
+public class Mehley459372 extends Wizard {
+
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-        if (timespan >= 11 ) {
+        if (fundValue > 80) {
             return Decision.LIQUIDATE_FUND;
-        }
-        else{
+        } else {
             return Decision.KEEP_FUND;
         }
     }
+
 }

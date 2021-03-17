@@ -1,18 +1,18 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import it.unipv.ingsw.alchemicalbank.Decision;
+// @author Francioli Lucia 471642
+import it.unipv.ingsw.alchemicalbank.*;
 
-public class Bobba466486 {
-	//prova wizard
+public class Francioli471642 extends Wizard {
 	
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
-		if(timespan==7||timespan==8) {
+		if (timespan>=10) {
 			return Decision.LIQUIDATE_FUND;
-		}
-		else
+		} else {
 			return Decision.KEEP_FUND;
-		
-	}
+					}	
+	} 
 	
+	
+
 }

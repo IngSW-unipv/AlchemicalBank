@@ -11,7 +11,7 @@ public class Terracciano467144 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		if(timespan<3)
+		if(timespan>10)
 		{
 			return Decision.LIQUIDATE_FUND;
 		}

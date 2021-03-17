@@ -3,16 +3,19 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class BlinduWizard extends Wizard{
+public class Cignoli469989 extends Wizard {
 
+	//cignoli
+	
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan > 10) {
+		if(timespan >= 11){
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
 		}
-		
+	
 	}
 
 }
