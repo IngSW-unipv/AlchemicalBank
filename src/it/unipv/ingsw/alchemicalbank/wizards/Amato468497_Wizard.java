@@ -25,9 +25,9 @@ public class Amato468497_Wizard extends Wizard{
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		//UPDATE IN CORSO
-			if (((myRevenue+hisRevenue)/2)>(fundValue+hisRevenue)) return Decision.LIQUIDATE_FUND;
-			else if (timespan==11) return Decision.LIQUIDATE_FUND;
-			else return Decision.KEEP_FUND;
+		if (((fundValue)/2)>(0.8)*myCoins) return Decision.LIQUIDATE_FUND;
+		else if (timespan==11) return Decision.LIQUIDATE_FUND;
+		else return Decision.KEEP_FUND;
     }
 	
 	/* Metodi per ricavare le informazioni sulle mosse e le informazioni

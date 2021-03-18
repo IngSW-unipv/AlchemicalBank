@@ -6,12 +6,13 @@ import it.unipv.ingsw.alchemicalbank.*;
 public class Francioli471642 extends Wizard {
 	
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 100) {
+		if (timespan>=10) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
-		}
-		
+					}	
 	} 
+	
+	
 
 }

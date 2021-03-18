@@ -9,19 +9,30 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 public class Scardovi470583Wizard extends Wizard {
 	
 	private int end;
+	private int year;
+	private int order;
+	private long myCoins;
+	private long partnerCoins;
+	private int time;
+	private int myRevenue;
+	private int partnerRevenue;
 	
 	public Scardovi470583Wizard() {
-		this.end = 11;
+		this.end = 8;
+		this.year = 0;
+		this.order = 1;
+		this.myCoins = 0;
+		this.partnerCoins = 0;
+		this.time = 0;
+		this.myRevenue = 0;
+		this.partnerRevenue = 0;
 	}
 	
 	@Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
     	Decision d = Decision.KEEP_FUND;
 
-		if (timespan == end || timespan == (end+1)) {
-			d = Decision.LIQUIDATE_FUND;
-		} 
-		if (timespan > 10) {
+		if (timespan > end) {
 			d = Decision.LIQUIDATE_FUND;
 		}
 		return d;
@@ -37,13 +48,10 @@ public class Scardovi470583Wizard extends Wizard {
      * @param partnerCoins amount of coins owned by the partner
      */
     public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-    	end = 11;
-    	if (year < 10 && yourCoins > partnerCoins) {
-        	end = 12;
-        }
-    	if (year > 90 && yourCoins < partnerCoins) {
-        	end = 10;
-        }
+    	this.year = year;
+    	this.order = order;
+    	this.myCoins = yourCoins;
+    	this.partnerCoins = partnerCoins;
     }
 
     /**
@@ -55,7 +63,9 @@ public class Scardovi470583Wizard extends Wizard {
      * @param partnerRevenue the revenue due to the partner
      */
     public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
-        /* Do nothing */
+        this.time = time;
+        this.myRevenue = yourRevenue;
+        this.partnerRevenue = partnerRevenue;
     }
     
 }

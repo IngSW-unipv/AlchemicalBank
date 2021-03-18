@@ -3,17 +3,26 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class Amadei471573 extends Wizard {
-	
-	// AMADEI DAVIDE
+/**
+ * A wizard that wants to wait for a lot of money.
+ */
+public class Cassini463193 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if(fundValue > 5) {
-			return Decision.KEEP_FUND;
+			if (timespan > 10) {
+
+			return Decision.LIQUIDATE_FUND;
+			
 		}
-		else return Decision.LIQUIDATE_FUND;
+		
+			else {
+			
+			return Decision.KEEP_FUND;
+		
+		}
+		
 	}
 
 }
