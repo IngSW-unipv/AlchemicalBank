@@ -280,6 +280,7 @@ public class AimanAlMasoud472462 extends Wizard {
 		}
 		
 		
+		/*
 		//TEST: performs quite well with numberOfIterations > 1000, not so much
 		//if the number of iterations is small.
 		public static void main(String args[]) {
@@ -287,7 +288,7 @@ public class AimanAlMasoud472462 extends Wizard {
 			argv[0] = "1000";
 			AlchemicalBank.main(argv);
 		}
-		
+		*/
 	
 	
 	
