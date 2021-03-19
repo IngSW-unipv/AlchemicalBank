@@ -49,7 +49,7 @@ public class Terracciano467144 extends Wizard {
 		else
 		{
 			double fear=Math.random();
-			if(fear>0.7)
+			if(fear>0.7 && !win)
 			{
 				if(timespan>7)
 				{
