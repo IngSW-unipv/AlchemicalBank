@@ -45,12 +45,19 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //with global variables in their classes.
 //Since I can't access the actual instance of their classes that is playing against me, 
 //I can't predict exactly what their Decisions will be.
-	
+
+//Sol: there is probably no way to mitigate randomness. But I can access my wizard-models' 
+//"myCoins" and "theirCoins" fields so that I can get a more accurate prediction of my 
+//opponent's behavior.
+
 
 public class AimanAlMasoud472462 extends Wizard {
 
 	//how many coins my current opponent has
 	long currentOpponentsCapital;
+	
+	//how many coins I currently possess
+	long myCurrentCapital;
 	
 	//transactions' logger: exploiting logs to get cumulative info on 
 	//opponents' current wealth
@@ -132,12 +139,17 @@ public class AimanAlMasoud472462 extends Wizard {
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
 		try {
-			//find who my current opponent is
+			//find out who my current opponent is
 			Wizard currentOpponent = findWizardByCapital(currentOpponentsCapital);
 			
 			//DEBUG PRINTOUT
 			//System.out.println("my current opponent is: "+currentOpponent);
 			
+			//some wizards make use of the "myCoins" and
+			//"theirCoins" fields to formulate a Decision. 
+			//If I take that into account, my simulation gets more accurate.
+			tellThemHowMuchTheyGot(currentOpponent);
+			tellThemHowMuchIGot(currentOpponent);
 			
 			//find out weather they'd liquidate on their next turn:
 			if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
@@ -192,6 +204,7 @@ public class AimanAlMasoud472462 extends Wizard {
 	@Override
 	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
 		this.currentOpponentsCapital = partnerCoins;
+		this.myCurrentCapital = yourCoins;
 		super.newFund(year, order, yourCoins, partnerCoins);
 	}
 	
@@ -236,15 +249,48 @@ public class AimanAlMasoud472462 extends Wizard {
 	}
 	
 	
-	/*
-	//TEST: performs quite well with numberOfIterations > 1000, not so much
-	//if the number of iterations is small.
-	public static void main(String args[]) {
-		String[] argv = new String[1];
-		argv[0] = "1000";
-		AlchemicalBank.main(argv);
+	//get all of the decalared fields within a Wizard class
+	public Field[] getFields(Wizard wizard) {
+		return wizard.getClass().getDeclaredFields();
 	}
-	*/
+	
+	//check if there is a "my coins" field in a wizard class and, if that's the case, set it.
+	public void tellThemHowMuchTheyGot(Wizard wizard) {
+		for(Field field : getFields(wizard)) {
+			if(field.toString().toUpperCase().contains("COIN")&&field.toString().toUpperCase().contains("M")) {
+				field.setAccessible(true);
+				try {
+					field.setLong(wizard, currentOpponentsCapital);
+				} catch (Exception e) {}
+			}
+		}
+	}
+	
+	
+	//check if there is a "their coins" field in a wizard class and, if that's the case, set it.
+		public void tellThemHowMuchIGot(Wizard wizard) {
+			for(Field field : getFields(wizard)) {
+				if(field.toString().toUpperCase().contains("COIN")&&!field.toString().toUpperCase().contains("M")) {
+					field.setAccessible(true);
+					try {
+						field.setLong(wizard, myCurrentCapital);
+					} catch (Exception e) {}
+				}
+			}
+		}
+		
+		
+		//TEST: performs quite well with numberOfIterations > 1000, not so much
+		//if the number of iterations is small.
+		public static void main(String args[]) {
+			String[] argv = new String[1];
+			argv[0] = "1000";
+			AlchemicalBank.main(argv);
+		}
+		
+	
+	
+	
 
 	
 }
