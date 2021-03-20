@@ -16,7 +16,7 @@ public class Francioli471642 extends Wizard {
 	}
 	
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(actualYear<40) {
+		if(actualYear==1) {
 			if(timespan>=10)
 			return Decision.LIQUIDATE_FUND;
 		else
