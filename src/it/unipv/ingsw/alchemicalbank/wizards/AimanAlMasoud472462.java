@@ -34,52 +34,51 @@ import it.unipv.ingsw.alchemicalbank.Bank;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-//Aiman Al Masoud 472462
-//the idea is to keep track of each participant's capital through the logs, 
-//and then try to identify the participant through their current capital, which is
-//provided by the startNewFund() method.
+/*
+ * @author Aiman_Al_Masoud 472462
+ */
+
+
+//The idea is to keep track of each participant's capital through the logs.
+//Since the partner-pairing process is randomized, there is a very low chance 
+//of two wizards having the same exact capital at any given time (except at the very beginning).
+//Since the the startNewFund() method tells me exactly how much my partner has, I can quite
+//reliably tell what Wizard I'm facing at any round. 
+
+//I can't gain access to the actual Wizard Objects in the Bank, but I can make my own 
+//instances of each. Those instances get fed as much info as possible, to determine what
+//the actual ones that are playing would do at any turn.
+
+//My goal is to keep the fund open as long as possible, liquidating it 
+//as soon as my instance of the opponent's class tells me they'd do it on their next turn.
 
 //Problems with this approach:
-//some of the contendents aren't relying solely on the information provided by the arguments
-//of the askKeepOrLiquidate method. Some are using Randoms, and others are doing all sorts of things
-//with global variables in their classes.
-//Since I can't access the actual instance of their classes that is playing against me, 
-//I can't predict exactly what their Decisions will be.
-
-//Sol: there is probably no way to mitigate randomness. But I can access my wizard-models' 
-//"myCoins" and "theirCoins" fields so that I can get a more accurate prediction of my 
-//opponent's behavior.
+//some Wizards rely on randomness to take a Decision, it's quite impossible to 
+//know what the seed of the actual object that is playing is.
 
 
 public class AimanAlMasoud472462 extends Wizard {
 
-	//how many coins my current opponent has
-	long currentOpponentsCapital;
 	
-	//how many coins I currently possess
-	long myCurrentCapital;
+	//my current opponent (gets set in the newFund() method)
+	private Wizard currentOpponent;
 	
 	//transactions' logger: exploiting logs to get cumulative info on 
 	//opponents' current wealth
-	Logger transactionsLogger = Logger.getLogger(Bank.class.getName());
+	private Logger transactionsLogger = Logger.getLogger(Bank.class.getName());
 	
 	//latest transaction 
-	String lastTransactionMessage;
+	private String lastTransactionMessage;
 	
-	//list of wizards and their capitals 
-	HashMap<Wizard, Long> wizardsAndCapitals = getAllWizards();
+	//list of wizards and their capitals, there's an instance for each wizard
+	//except for this class. 
+	private HashMap<Wizard, Long> wizardsAndCapitals = getAllWizards();
+	
 	
 	public AimanAlMasoud472462() {
 		
-		
-		//DEBUG PRINTOUT
-		/*
-		for(Wizard wizard: wizardsAndCapitals.keySet()) {
-			System.out.println(wizard + " "+wizardsAndCapitals.get(wizard));
-		}
-		*/
-		
-		
+		//add a Handler to the Logger, so as to fetch cumulative info
+		//on all of the Wizards' capitals.
 		try {
 			transactionsLogger.addHandler(new Handler() {
 				@Override
@@ -91,33 +90,32 @@ public class AimanAlMasoud472462 extends Wizard {
 				@Override
 				public void publish(LogRecord arg0) {
 					
+					//get log message
 					lastTransactionMessage = arg0.getMessage();	
+					
 					
 					//update capitals of two opponents
 					try {
 						int startIndex = lastTransactionMessage.indexOf(" months: ")+" months: ".length();
-						lastTransactionMessage = lastTransactionMessage.substring(startIndex);
-						String[] twoParts = lastTransactionMessage.split("/ ");
+						String wizardsUpdateInfo = lastTransactionMessage.substring(startIndex);
+						String[] twoParts = wizardsUpdateInfo.split("/ ");
 						
 						
 						//this is the pattern in each of the twoParts 
 						//NameOfWizard\\whitespace(ProfitOfWizard)
 						Pattern pattern = Pattern.compile("(.*?)\\s\\((.*?)\\)");
-						
-						
+					
 						//wizard 1 => parts[0]
 						Matcher matcher = pattern.matcher(twoParts[0]);
 						matcher.find();
 						String wizardOneName = matcher.group(1).trim();
 						long wizardOneProfit = Long.parseLong((matcher.group(2).trim()));
-						
-						
+					
 						//wizard 2 => parts[1]
 						matcher = pattern.matcher(twoParts[1]);
 						matcher.find();
 						String wizardTwoName = matcher.group(1).trim();
 						long wizardTwoProfit = Long.parseLong((matcher.group(2).trim()));
-						
 						
 						//update wizards
 						updateWizardsCapital(wizardOneName, wizardOneProfit);
@@ -125,7 +123,6 @@ public class AimanAlMasoud472462 extends Wizard {
 						
 					}catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IllegalStateException e) {	
 					}
-					
 				}
 				
 			});
@@ -137,20 +134,7 @@ public class AimanAlMasoud472462 extends Wizard {
 	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
 		try {
-			//find out who my current opponent is
-			Wizard currentOpponent = findWizardByCapital(currentOpponentsCapital);
-			
-			//DEBUG PRINTOUT
-			//System.out.println("my current opponent is: "+currentOpponent);
-			
-			//some wizards make use of the "myCoins" and
-			//"theirCoins" fields to formulate a Decision. 
-			//If I take that into account, my simulation gets more accurate.
-			tellThemHowMuchTheyGot(currentOpponent);
-			tellThemHowMuchIGot(currentOpponent);
-			
 			//find out weather they'd liquidate on their next turn:
 			if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
 				return Decision.LIQUIDATE_FUND; //if they would, do it before they can.
@@ -159,13 +143,10 @@ public class AimanAlMasoud472462 extends Wizard {
 			}else {
 				return Decision.KEEP_FUND; 
 			}
-			
-			
-		}catch(NullPointerException e) {
-			//if this fails
+		}catch(NullPointerException | ArithmeticException e) {
+			//if this fails be greedy
 			return Decision.LIQUIDATE_FUND;
 		}
-		
 	}
 
 	
@@ -190,7 +171,6 @@ public class AimanAlMasoud472462 extends Wizard {
 				} 
         	}
         }
-
         // Add one extra 'WackyWizard' if they are in an odd number
         if (accountsBuffer.size() % 2 != 0)
         	accountsBuffer.put(new WackyWizard(), STARTING_BALANCE);
@@ -203,12 +183,29 @@ public class AimanAlMasoud472462 extends Wizard {
 	//exploit this method to get the current value of my oppponent's capital
 	@Override
 	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-		this.currentOpponentsCapital = partnerCoins;
-		this.myCurrentCapital = yourCoins;
+		try {
+			//identify my current opponent through his "capital fingerprint":
+			currentOpponent = findWizardByCapital(partnerCoins);
+			//feed info to my model of the wizards:
+			currentOpponent.newFund(year, (order==1 ? 2 : 1) , partnerCoins, yourCoins);
+		}catch(NullPointerException e) {
+			//catch nullpointer exception from Bank
+		}
 		super.newFund(year, order, yourCoins, partnerCoins);
 	}
 	
-	
+	//improve model of opponent-wizard by feeding it more info
+	@Override
+	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+		try {
+			//feed info to my model of the wizards:
+			currentOpponent.fundClosed(time, partnerRevenue, yourRevenue);
+		}catch(NullPointerException e) {
+			//catch nullpointer exception from bank
+		}
+		super.fundClosed(time, yourRevenue, partnerRevenue);
+	}
+
 	//update a single wizard's capital
 	public void updateWizardsCapital(String wizardName, long profit) {
 		Wizard wizardGettingUpdated = findWizard(wizardName);
@@ -218,9 +215,8 @@ public class AimanAlMasoud472462 extends Wizard {
 			//wizard doesn't exist, or it's myself
 		}
 	}
-	
-	
-	//find wizard in map
+
+	//find wizard in map by name
 	public Wizard findWizard(String wizardName) {
 		Wizard foundWizard = null;
 		//find wizard by name inside of the map
@@ -248,47 +244,16 @@ public class AimanAlMasoud472462 extends Wizard {
 		return null;
 	}
 	
-	
-	//get all of the decalared fields within a Wizard class
-	public Field[] getFields(Wizard wizard) {
-		return wizard.getClass().getDeclaredFields();
+	/*
+	//TEST: performs quite well with numberOfIterations > 1000, not so much
+	//if the number of iterations is small.
+	public static void main(String args[]) {
+		String[] argv = new String[1];
+		argv[0] = "1000";
+		AlchemicalBank.main(argv);
 	}
-	
-	//check if there is a "my coins" field in a wizard class and, if that's the case, set it.
-	public void tellThemHowMuchTheyGot(Wizard wizard) {
-		for(Field field : getFields(wizard)) {
-			if(field.toString().toUpperCase().contains("COIN")&&field.toString().toUpperCase().contains("M")) {
-				field.setAccessible(true);
-				try {
-					field.setLong(wizard, currentOpponentsCapital);
-				} catch (Exception e) {}
-			}
-		}
-	}
-	
-	
-	//check if there is a "their coins" field in a wizard class and, if that's the case, set it.
-		public void tellThemHowMuchIGot(Wizard wizard) {
-			for(Field field : getFields(wizard)) {
-				if(field.toString().toUpperCase().contains("COIN")&&!field.toString().toUpperCase().contains("M")) {
-					field.setAccessible(true);
-					try {
-						field.setLong(wizard, myCurrentCapital);
-					} catch (Exception e) {}
-				}
-			}
-		}
+	*/
 		
-		
-		/*
-		//TEST: performs quite well with numberOfIterations > 1000, not so much
-		//if the number of iterations is small.
-		public static void main(String args[]) {
-			String[] argv = new String[1];
-			argv[0] = "1000";
-			AlchemicalBank.main(argv);
-		}
-		*/
 	
 	
 	
