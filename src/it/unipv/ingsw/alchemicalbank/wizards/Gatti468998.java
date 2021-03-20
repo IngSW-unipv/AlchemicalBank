@@ -8,7 +8,7 @@ public class Gatti468998 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		if(fundValue>200 || timespan>5) {
+		if(fundValue>=0.8*5120) {
 			return Decision.LIQUIDATE_FUND;
 		}
 		else return Decision.KEEP_FUND;
