@@ -1,11 +1,12 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import it.unipv.ingsw.alchemicalbank.Decision;
-import it.unipv.ingsw.alchemicalbank.Wizard;
+import it.unipv.ingsw.alchemicalbank.*;
 
-// Claudio Cusano 123456
+/**
+ * @author Daniele Murer 466558
+ */
 
-public class Cusano123456 extends Wizard {
+public class MurerDanieleWizard extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {

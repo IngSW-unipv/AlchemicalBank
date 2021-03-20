@@ -3,14 +3,18 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class JWizard extends Wizard{
+// Vezzolo Gaia 
+
+public class Vezzolo472200 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(timespan > 12) {
+		
+		if (timespan>10) {
 			return Decision.LIQUIDATE_FUND;
 		}
-		return Decision.KEEP_FUND;
+		else {
+			return Decision.KEEP_FUND;
+		}
 	}
-
 }

@@ -10,7 +10,7 @@ public class Amadei471573 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
-		if(fundValue >5) {
+		if(fundValue > 5) {
 			return Decision.KEEP_FUND;
 		}
 		else return Decision.LIQUIDATE_FUND;
