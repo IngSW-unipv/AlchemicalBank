@@ -1,18 +1,20 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import it.unipv.ingsw.alchemicalbank.Decision;
-import it.unipv.ingsw.alchemicalbank.Wizard;
+import it.unipv.ingsw.alchemicalbank.*;
 
-public class BlinduWizard extends Wizard{
+/**
+ * @author Daniele Murer 466558
+ */
+
+public class MurerDanieleWizard extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (timespan > 10) {
+		if (fundValue > 100) {
 			return Decision.LIQUIDATE_FUND;
 		} else {
 			return Decision.KEEP_FUND;
 		}
-		
 	}
 
 }
