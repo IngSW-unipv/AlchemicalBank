@@ -1,25 +1,8 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -53,9 +36,12 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 //as soon as my instance of the opponent's class tells me they'd do it on their next turn.
 
 //Problems with this approach:
-//some Wizards rely on randomness to take a Decision, it's quite impossible to 
+//1) Some Wizards rely on randomness to take a Decision, it's quite impossible to 
 //know what the seed of the actual object that is playing is.
-
+//2) There's still an element of chance related to the Wizards you get to play against in a game.
+//if you only get to face "greedy opponents", even liquidating at the optimum spot all the time 
+//isn't gonna make you earn a lot of money. This gets particularly bad for a low number
+//of iterations.
 
 public class AimanAlMasoud472462 extends Wizard {
 
@@ -244,6 +230,8 @@ public class AimanAlMasoud472462 extends Wizard {
 		return null;
 	}
 	
+	
+	
 	/*
 	//TEST: performs quite well with numberOfIterations > 1000, not so much
 	//if the number of iterations is small.
@@ -253,6 +241,7 @@ public class AimanAlMasoud472462 extends Wizard {
 		AlchemicalBank.main(argv);
 	}
 	*/
+	
 		
 	
 	
