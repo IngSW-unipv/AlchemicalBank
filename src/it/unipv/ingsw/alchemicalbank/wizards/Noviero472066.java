@@ -1,5 +1,21 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-public class Noviero472066 {
+import it.unipv.ingsw.alchemicalbank.Decision;
+import it.unipv.ingsw.alchemicalbank.Wizard;
 
+public class Noviero472066 extends Wizard{
+
+	@Override
+	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+		//
+		if (timespan > 10) {
+			return Decision.LIQUIDATE_FUND;
+		} else {
+			return Decision.KEEP_FUND;
+		}
+	}
+
+	
+	
+	
 }
