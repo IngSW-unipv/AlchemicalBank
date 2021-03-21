@@ -17,7 +17,11 @@ public class Terracciano467144 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		// TODO Auto-generated method stub
-		if(year==1)
+		if(!(Thread.currentThread().getStackTrace()[2].getClassName().equals("it.unipv.ingsw.alchemicalbank.InvestmentFund")))
+		{
+			return Decision.KEEP_FUND;
+		}
+		if(year<=10)
 		{
 			if(timespan>10)
 			{
@@ -28,7 +32,7 @@ public class Terracciano467144 extends Wizard {
 				return Decision.KEEP_FUND;
 			}
 		}
-		else if(year>=2 && year<=99)
+		else if(year>=11 && year<=499)
 		{
 			if(win)
 			{
