@@ -5,7 +5,6 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Cignoli469989 extends Wizard {
 
-	//cignoli
 	
 	
 /*	@Override
