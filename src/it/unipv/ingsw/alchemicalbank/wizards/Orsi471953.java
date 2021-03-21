@@ -1,5 +1,14 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-public class Orsi471953 {
+import it.unipv.ingsw.alchemicalbank.Wizard;
 
-}
+public class Orsi471953{
+	
+	
+		
+
+	}
+	
+
+
+
