@@ -5,19 +5,19 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
 
 public class Petri467373 extends Wizard {
 
-	//Primo tentativo basato sul timespan
-	
+	private int order;
+
 	@Override
-	public Decision askKeepOrLiquidate(int fundValue, int timespan) { //metodo che ci chiede la banca, se vogliamo aprirlo o chiuderlo
-		if (timespan == 11) {              //scelgo un timespan quasi al limite
+	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+		if(timespan == 11 && fundValue > 2000) {
 			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
+		} else if(order == 2 && timespan == 10){ //se non ho priorità
+			return Decision.LIQUIDATE_FUND;
 		}
-		
+		else return Decision.KEEP_FUND;
+
 	}
 
 }
-
 
 //patient wizard lascia sempre aperto!! wackyWizard chiude subito!!
