@@ -1,5 +1,6 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -61,7 +62,11 @@ public class AimanAlMasoud472462 extends Wizard {
 	private HashMap<Wizard, Long> wizardsAndCapitals = getAllWizards();
 	
 	
+	//wizards that managed to close before me:
+	private static ArrayList<Wizard> cunningWizards =  new ArrayList<Wizard>();
+	
 	public AimanAlMasoud472462() {
+	
 		
 		//add a Handler to the Logger, so as to fetch cumulative info
 		//on all of the Wizards' capitals.
@@ -121,6 +126,12 @@ public class AimanAlMasoud472462 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		try {
+			
+			if(currentOpponent.getName().contains("Aiman")&&timespan>4) {
+				return Decision.LIQUIDATE_FUND;
+			}
+			
+			
 			//find out weather they'd liquidate on their next turn:
 			if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
 				return Decision.LIQUIDATE_FUND; //if they would, do it before they can.
@@ -183,6 +194,15 @@ public class AimanAlMasoud472462 extends Wizard {
 	//improve model of opponent-wizard by feeding it more info
 	@Override
 	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+		
+		//get wizards that closed before me
+		if(time>10&&yourRevenue<partnerRevenue) {
+			if(!cunningWizards.contains(currentOpponent)) {
+				cunningWizards.add(currentOpponent);
+			}
+		}
+		
+		
 		try {
 			//feed info to my model of the wizards:
 			currentOpponent.fundClosed(time, partnerRevenue, yourRevenue);
@@ -239,6 +259,12 @@ public class AimanAlMasoud472462 extends Wizard {
 		String[] argv = new String[1];
 		argv[0] = "1000";
 		AlchemicalBank.main(argv);
+		
+		//DEBUG:
+		for(Wizard wizard : cunningWizards) {
+			System.out.println(wizard);
+		}
+		
 	}
 	*/
 	
