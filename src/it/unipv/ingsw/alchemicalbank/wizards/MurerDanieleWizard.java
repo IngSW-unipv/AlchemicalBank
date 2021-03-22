@@ -6,15 +6,15 @@ import it.unipv.ingsw.alchemicalbank.*;
  * @author Daniele Murer 466558
  */
 
-public class MurerDanieleWizard extends Wizard {
+public final class MurerDanieleWizard extends Wizard {
 
-	@Override
-	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 100) {
-			return Decision.LIQUIDATE_FUND;
-		} else {
-			return Decision.KEEP_FUND;
-		}
-	}
+    public static boolean masterIsPlaying = false;
+
+    public static boolean aPartnerIsPlaying = false;
+
+    @Override
+    public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+        return (timespan >= 11) ? Decision.LIQUIDATE_FUND : Decision.KEEP_FUND;
+    }
 
 }
