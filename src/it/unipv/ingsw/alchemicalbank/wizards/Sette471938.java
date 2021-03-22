@@ -11,7 +11,7 @@ public class Sette471938 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if (fundValue > 100) {
+		if (timespan > 10) {
 			return Decision.LIQUIDATE_FUND;
 		}
 		else

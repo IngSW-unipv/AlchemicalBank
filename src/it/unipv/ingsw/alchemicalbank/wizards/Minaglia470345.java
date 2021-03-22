@@ -7,7 +7,7 @@ public class Minaglia470345 extends Wizard {
 
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		if(timespan<5)
+		if(timespan<10)
 			return Decision.KEEP_FUND;
 		else
 			return Decision.LIQUIDATE_FUND;
