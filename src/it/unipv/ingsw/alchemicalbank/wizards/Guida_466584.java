@@ -12,6 +12,10 @@ public class Guida_466584 extends Wizard {
 
 	
 
+	public Guida_466584() {
+		super();
+	}
+	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 			if(timespan >= timeToClose) 
