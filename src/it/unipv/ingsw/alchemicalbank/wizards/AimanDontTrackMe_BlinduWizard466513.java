@@ -185,7 +185,7 @@ public class AimanDontTrackMe_BlinduWizard466513 extends Wizard {
         	List<Class<?>> controlClassRefs = controlClasses.loadClasses();
         	for (Class<?> c : controlClassRefs) {
         		try {
-        			if(!c.toString().contains("Blindu")) {
+        			if(!c.toString().contains("Aiman")) {
         				Wizard new_client = (Wizard)c.getDeclaredConstructor().newInstance();
     					accountsBuffer.put(new_client, STARTING_BALANCE);
         			}
