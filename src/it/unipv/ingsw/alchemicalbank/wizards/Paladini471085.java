@@ -16,7 +16,7 @@ import it.unipv.ingsw.alchemicalbank.*;
  * Instead, when the other player ins't Daniele, I boycott him
  * (closing as soon as possible the fund).
  */
-public class PartnerWizardClassName extends Wizard {
+public class Paladini471085 extends Wizard {
 
     @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
