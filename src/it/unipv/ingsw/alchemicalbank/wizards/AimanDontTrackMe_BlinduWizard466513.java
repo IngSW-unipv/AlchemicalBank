@@ -1,5 +1,6 @@
 package it.unipv.ingsw.alchemicalbank.wizards;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -17,34 +18,69 @@ import it.unipv.ingsw.alchemicalbank.Bank;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-/*
- * @author Aiman_Al_Masoud 472462
- */
+public class AimanDontTrackMe_BlinduWizard466513 extends Wizard {
+	HashMap<Integer, Integer> currentGame;
+	boolean antithief;
+
+	int myAllRevenue = 0;
+	ArrayList<Integer> timeClosedList = new ArrayList<>();
+	ArrayList<Integer> partnerClosedRevenue = new ArrayList<>();
+	int currentOrder;
 
 
-//The idea is to keep track of each participant's capital through the logs.
-//Since the partner-pairing process is randomized, there is a very low chance 
-//of two wizards having the same exact capital at any given time (except at the very beginning).
-//Since the the startNewFund() method tells me exactly how much my partner has, I can quite
-//reliably tell what Wizard I'm facing at any round. 
+   public void newfund(int year, int order, long myMoney, long otherMoney) {
+      this.currentGame = new HashMap<>();
+      for (int i=0; i<=12; i++) {
+         this.currentGame.put(i, 0);
+      }
+      this.antithief = false;
+      this.currentOrder = order;
 
-//I can't gain access to the actual Wizard Objects in the Bank, but I can make my own 
-//instances of each. Those instances get fed as much info as possible, to determine what
-//the actual ones that are playing would do at any turn.
+   }
 
-//My goal is to keep the fund open as long as possible, liquidating it 
-//as soon as my instance of the opponent's class tells me they'd do it on their next turn.
+   private Decision makeDecision(int fundValue, int timespan) {
+      
+      if (this.antithief) {
+    	  return Decision.LIQUIDATE_FUND;
+      } 
+      if (timespan > 10) {
+         return Decision.LIQUIDATE_FUND;
+      } else {
+         return Decision.KEEP_FUND;
+      }
+   }
 
-//Problems with this approach:
-//1) Some Wizards rely on randomness to take a Decision, it's quite impossible to 
-//know what the seed of the actual object that is playing is.
-//2) There's still an element of chance related to the Wizards you get to play against in a game.
-//if you only get to face "greedy opponents", even liquidating at the optimum spot all the time 
-//isn't gonna make you earn a lot of money. This gets particularly bad for a low number
-//of iterations.
+   private Decision makeDecisionForThief(int fundValue, int timespan) {
+      return Decision.KEEP_FUND;
+   }
 
-public class AimanAlMasoud472462 extends Wizard {
 
+   public Decision askKeeporLiquidate(int fundValue, int timespan) {
+      Decision result = Decision.LIQUIDATE_FUND;
+      Integer current = this.currentGame.get(timespan);
+      this.currentGame.put(timespan, current+1);
+
+      if (!this.antithief && this.currentGame.get(timespan) > 1) {
+         // se entro qua dentro vuol dire che è la seconda che veniamo richiamati per
+         // questo timestamp in questo gioco
+         this.antithief = true;
+      } 
+
+      if (this.antithief && this.currentGame.get(timespan) == 1) {         
+         result = this.makeDecisionForThief(fundValue, timespan);         
+      } else {
+         result = this.makeDecision(fundValue, timespan);
+      }
+
+      return result;
+
+   }
+
+   public void fundclosed(int time, int yourRevenue, int partnerRevenue) {
+      this.myAllRevenue += yourRevenue;
+      this.partnerClosedRevenue.add(partnerRevenue);
+      this.timeClosedList.add(time);
+   }
 	
 	//my current opponent (gets set in the newFund() method)
 	private Wizard currentOpponent;
@@ -61,7 +97,7 @@ public class AimanAlMasoud472462 extends Wizard {
 	private HashMap<Wizard, Long> wizardsAndCapitals = getAllWizards();
 	
 	
-	public AimanAlMasoud472462() {
+	public AimanDontTrackMe_BlinduWizard466513() {
 		
 		//add a Handler to the Logger, so as to fetch cumulative info
 		//on all of the Wizards' capitals.
@@ -230,38 +266,4 @@ public class AimanAlMasoud472462 extends Wizard {
 		return null;
 	}
 	
-	
-	
-	/*
-	//TEST: performs quite well with numberOfIterations > 1000, not so much
-	//if the number of iterations is small.
-	public static void main(String args[]) {
-		String[] argv = new String[1];
-		argv[0] = "1000";
-		AlchemicalBank.main(argv);
-	}
-	*/
-	
-		
-	
-	
-	
-
-	
 }
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-
-
