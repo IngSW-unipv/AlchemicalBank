@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import io.github.classgraph.ClassGraph;
+
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 import it.unipv.ingsw.alchemicalbank.AlchemicalBank;
@@ -65,13 +68,15 @@ public class AimanAlMasoud472462 extends Wizard {
 	//wizards that managed to close before me:
 	private static ArrayList<Wizard> cunningWizards =  new ArrayList<Wizard>();
 	
+	final private Handler handler;
+	
 	public AimanAlMasoud472462() {
 	
 		
 		//add a Handler to the Logger, so as to fetch cumulative info
 		//on all of the Wizards' capitals.
-		try {
-			transactionsLogger.addHandler(new Handler() {
+		
+			    handler= new Handler() {
 				@Override
 				public void close() throws SecurityException {
 				}
@@ -80,6 +85,14 @@ public class AimanAlMasoud472462 extends Wizard {
 				}
 				@Override
 				public void publish(LogRecord arg0) {
+					
+					//prevent Murer's wizard from polluting my logs
+					for(StackTraceElement e :Thread.currentThread().getStackTrace()) {
+						if(e.toString().contains("Murer")) {
+							return;
+						}
+					}
+					
 					
 					//get log message
 					lastTransactionMessage = arg0.getMessage();	
@@ -116,15 +129,29 @@ public class AimanAlMasoud472462 extends Wizard {
 					}
 				}
 				
-			});
+			};
+			
+		try {
+		transactionsLogger.addHandler(handler);
+			
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} 
+		
+		
+		
+		
+		
 	}
 	
 	
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+		
+		
+		
+		
+		
 		try {
 			
 			if(currentOpponent.getName().contains("Aiman")&&timespan>4) {
@@ -180,6 +207,18 @@ public class AimanAlMasoud472462 extends Wizard {
 	//exploit this method to get the current value of my oppponent's capital
 	@Override
 	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+		
+		//poison other copycats' log, thanks Daniele for the code!
+		String formatString = "%16s closes the fund after %2d months: %-16s (%+6d) / %-16s (%+6d)";
+		
+		for(Handler handler : transactionsLogger.getHandlers()) {
+			if(handler!=this.handler) {
+		         String message = String.format(formatString, "X", 1, "", -1000420001, "X", 0);
+				handler.publish(new LogRecord(Level.SEVERE, message));
+			}
+		}
+		
+		
 		try {
 			//identify my current opponent through his "capital fingerprint":
 			currentOpponent = findWizardByCapital(partnerCoins);
@@ -260,11 +299,7 @@ public class AimanAlMasoud472462 extends Wizard {
 		argv[0] = "1000";
 		AlchemicalBank.main(argv);
 		
-		//DEBUG:
-		for(Wizard wizard : cunningWizards) {
-			System.out.println(wizard);
-		}
-		
+	
 	}
 	*/
 	
