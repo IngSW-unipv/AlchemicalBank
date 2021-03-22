@@ -9,7 +9,7 @@ import it.unipv.ingsw.alchemicalbank.Wizard;
  */
 public class Falzone473685 extends Wizard {
 	private Random randomGenerator = new Random();
-	private long myCoins; //le mie monete totali 
+	private long myCoins; //tutte le mie monete 
 	private long partnerCoins; //le monete del partner
 	private int myCurrentOrder; // 1 o 2
 	private int currentYear; //anno corrente
