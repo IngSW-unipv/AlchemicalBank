@@ -1,9 +1,4 @@
-package it.unipv.ingsw.alchemicalbank.wizards;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
+package it.unipv.ingsw.alchemicalbank.wizards;   
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -13,12 +8,26 @@ import java.util.regex.Pattern;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
-import it.unipv.ingsw.alchemicalbank.AlchemicalBank;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
 import it.unipv.ingsw.alchemicalbank.Bank;
 import it.unipv.ingsw.alchemicalbank.Decision;
 import it.unipv.ingsw.alchemicalbank.Wizard;
 
-public class AimanDontTrackMe_CasarosaWizard471169 extends Wizard {
+//The commented code in the Wizard WWWizard (implemented * 6 Wizards) kills everyone using the logger and trying to see 
+//other's decision--> the issue is that this does not ensure myClass to win, but only ensure that
+//everyone using the Logger Strategy does not win. So, in order to win for sure, I had to use the
+//strategy in this class.
+
+/**
+ * @author Jessica Vecchia
+ *
+ */
+public class AimanDontTrackme_JennyWizard extends Wizard {
 	HashMap<Integer, Integer> currentGame;
 	boolean antithief;
 
@@ -81,8 +90,7 @@ public class AimanDontTrackMe_CasarosaWizard471169 extends Wizard {
       this.partnerClosedRevenue.add(partnerRevenue);
       this.timeClosedList.add(time);
    }
-	
-	//my current opponent (gets set in the newFund() method)
+   
 	private Wizard currentOpponent;
 	
 	//transactions' logger: exploiting logs to get cumulative info on 
@@ -97,7 +105,7 @@ public class AimanDontTrackMe_CasarosaWizard471169 extends Wizard {
 	private HashMap<Wizard, Long> wizardsAndCapitals = getAllWizards();
 	
 	
-	public AimanDontTrackMe_CasarosaWizard471169() {
+	public AimanDontTrackme_JennyWizard() {
 		
 		//add a Handler to the Logger, so as to fetch cumulative info
 		//on all of the Wizards' capitals.
@@ -152,118 +160,112 @@ public class AimanDontTrackMe_CasarosaWizard471169 extends Wizard {
 			e.printStackTrace();
 		} 
 	}
-	
-	
-	@Override
-	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		try {
-			//find out weather they'd liquidate on their next turn:
-			if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
-				return Decision.LIQUIDATE_FUND; //if they would, do it before they can.
-			}else if(timespan==11) {
+		@Override
+		public Decision askKeepOrLiquidate(int fundValue, int timespan) {
+			try {
+				//find out weather they'd liquidate on their next turn:
+				if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
+					return Decision.LIQUIDATE_FUND; //if they would, do it before they can.
+				}else if(timespan==11) {
+					return Decision.LIQUIDATE_FUND;
+				}else {
+					return Decision.KEEP_FUND; 
+				}
+			}catch(NullPointerException | ArithmeticException e) {
+				//if this fails be greedy
 				return Decision.LIQUIDATE_FUND;
-			}else {
-				return Decision.KEEP_FUND; 
-			}
-		}catch(NullPointerException | ArithmeticException e) {
-			//if this fails be greedy
-			return Decision.LIQUIDATE_FUND;
-		}
-	}
-
-	
-	//get instances of all wizard objects (except for this class)
-	public HashMap<Wizard, Long> getAllWizards(){
-		
-		long STARTING_BALANCE = 100;
-		HashMap<Wizard, Long> accountsBuffer = new HashMap<Wizard, Long>();
-		
-		// Add one instance of all descendants of the Wizard class
-        try (ScanResult scanResult = new ClassGraph().enableAllInfo().whitelistPackages("it.unipv.ingsw.alchemicalbank.wizards")
-                .scan()) {
-        	ClassInfoList controlClasses = scanResult.getSubclasses("it.unipv.ingsw.alchemicalbank.Wizard");
-        	List<Class<?>> controlClassRefs = controlClasses.loadClasses();
-        	for (Class<?> c : controlClassRefs) {
-        		try {
-        			if(!c.toString().contains("Aiman")) {
-        				Wizard new_client = (Wizard)c.getDeclaredConstructor().newInstance();
-    					accountsBuffer.put(new_client, STARTING_BALANCE);
-        			}
-        		} catch (Exception e) {
-				} 
-        	}
-        }
-        // Add one extra 'WackyWizard' if they are in an odd number
-        if (accountsBuffer.size() % 2 != 0)
-        	accountsBuffer.put(new WackyWizard(), STARTING_BALANCE);
-		
-        return accountsBuffer;
-	}
-        	
-
-
-	//exploit this method to get the current value of my oppponent's capital
-	@Override
-	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-		try {
-			//identify my current opponent through his "capital fingerprint":
-			currentOpponent = findWizardByCapital(partnerCoins);
-			//feed info to my model of the wizards:
-			currentOpponent.newFund(year, (order==1 ? 2 : 1) , partnerCoins, yourCoins);
-		}catch(NullPointerException e) {
-			//catch nullpointer exception from Bank
-		}
-		super.newFund(year, order, yourCoins, partnerCoins);
-	}
-	
-	//improve model of opponent-wizard by feeding it more info
-	@Override
-	public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
-		try {
-			//feed info to my model of the wizards:
-			currentOpponent.fundClosed(time, partnerRevenue, yourRevenue);
-		}catch(NullPointerException e) {
-			//catch nullpointer exception from bank
-		}
-		super.fundClosed(time, yourRevenue, partnerRevenue);
-	}
-
-	//update a single wizard's capital
-	public void updateWizardsCapital(String wizardName, long profit) {
-		Wizard wizardGettingUpdated = findWizard(wizardName);
-		try {
-			wizardsAndCapitals.put(wizardGettingUpdated, wizardsAndCapitals.get(wizardGettingUpdated)+profit);
-		}catch(NullPointerException e) {
-			//wizard doesn't exist, or it's myself
-		}
-	}
-
-	//find wizard in map by name
-	public Wizard findWizard(String wizardName) {
-		Wizard foundWizard = null;
-		//find wizard by name inside of the map
-		
-		for(Wizard wizard : wizardsAndCapitals.keySet()) {
-			if(wizard.toString().contains(wizardName)) {
-				foundWizard = wizard;
-				break;
 			}
 		}
-		return foundWizard;
-	}
-	
-	//find wizard by current capital
-	//NB: if there's still two wizards with the same capital
-	//this method returns the first in the entry set.
-	public Wizard findWizardByCapital(long capital) {
+
 		
-		for(Entry<?, ?> entry : wizardsAndCapitals.entrySet()) {
-			if( (long)entry.getValue() == capital) {
-				return (Wizard)entry.getKey();
+		//get instances of all wizard objects (except for this class)
+		public HashMap<Wizard, Long> getAllWizards(){
+			
+			long STARTING_BALANCE = 100;
+			HashMap<Wizard, Long> accountsBuffer = new HashMap<Wizard, Long>();
+			
+			// Add one instance of all descendants of the Wizard class
+	        try (ScanResult scanResult = new ClassGraph().enableAllInfo().whitelistPackages("it.unipv.ingsw.alchemicalbank.wizards")
+	                .scan()) {
+	        	ClassInfoList controlClasses = scanResult.getSubclasses("it.unipv.ingsw.alchemicalbank.Wizard");
+	        	List<Class<?>> controlClassRefs = controlClasses.loadClasses();
+	        	for (Class<?> c : controlClassRefs) {
+	        		try {
+	        			if(!c.toString().contains("Aiman")) {
+	        				Wizard new_client = (Wizard)c.getDeclaredConstructor().newInstance();
+	    					accountsBuffer.put(new_client, STARTING_BALANCE);
+	        			}
+	        		} catch (Exception e) {
+					} 
+	        	}
+	        }
+	        // Add one extra 'WackyWizard' if they are in an odd number
+	        if (accountsBuffer.size() % 2 != 0)
+	        	accountsBuffer.put(new WackyWizard(), STARTING_BALANCE);
+			
+	        return accountsBuffer;
+		}
+	        	
+
+
+		//exploit this method to get the current value of my oppponent's capital
+		@Override
+		public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+			try {
+				//identify my current opponent through his "capital fingerprint":
+				currentOpponent = findWizardByCapital(partnerCoins);
+				//feed info to my model of the wizards:
+				currentOpponent.newFund(year, (order==1 ? 2 : 1) , partnerCoins, yourCoins);
+			}catch(NullPointerException e) {
+				
 			}
+			super.newFund(year, order, yourCoins, partnerCoins);
 		}
 		
-		return null;
-	}
-	
+		//improve model of opponent-wizard by feeding it more info
+		@Override
+		public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+			try {
+				//feed info to my model of the wizards:
+				currentOpponent.fundClosed(time, partnerRevenue, yourRevenue);
+			}catch(NullPointerException e) {
+				//catch nullpointer exception from bank
+			}
+			super.fundClosed(time, yourRevenue, partnerRevenue);
+		}
+
+		//update a single wizard's capital
+		public void updateWizardsCapital(String wizardName, long profit) {
+			Wizard wizardGettingUpdated = findWizard(wizardName);
+			try {
+				wizardsAndCapitals.put(wizardGettingUpdated, wizardsAndCapitals.get(wizardGettingUpdated)+profit);
+			}catch(NullPointerException e) {
+				//wizard doesn't exist, or it's myself
+			}
+		}
+
+		//find wizard in map by name
+		public Wizard findWizard(String wizardName) {
+			Wizard foundWizard = null;
+			//find wizard by name inside of the map
+			
+			for(Wizard wizard : wizardsAndCapitals.keySet()) {
+				if(wizard.toString().contains(wizardName)) {
+					foundWizard = wizard;
+					break;
+				}
+			}
+			return foundWizard;
+		}
+		
+		public Wizard findWizardByCapital(long capital) {
+			
+			for(Entry entry : wizardsAndCapitals.entrySet()) {
+				if( (long)entry.getValue() == capital) {
+					return (Wizard)entry.getKey();
+				}
+			}
+			
+			return null;
+		}
 }
