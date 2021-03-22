@@ -6,7 +6,7 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 	import it.unipv.ingsw.alchemicalbank.Wizard;
 //6 OF THESE WIZARD CAN KILL ANYONE USING LOGGER TO SEE OTHER PEOPLE RESULTS. 
 	
-	public class OmbraWizard extends Wizard {
+	public class OmbronaWizard extends Wizard {
 	
 		static HashMap<Long, Integer[]> games = new HashMap<>();
 		   static HashMap<Long, Boolean> thieveGames = new HashMap<>();
@@ -56,7 +56,6 @@ package it.unipv.ingsw.alchemicalbank.wizards;
 
 		      if (!this.thieveGames.get(hash).booleanValue() && current > 1) {
 		         // se entro qua dentro vuol dire che è la seconda che veniamo richiamati per
-         // se entro qua dentro vuol dire che ï¿½ la seconda che veniamo richiamati per
 		         // questo timestamp in questo gioco
 		         this.thieveGames.put(hash, true);         
 		      } 
