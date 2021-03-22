@@ -86,11 +86,10 @@ public class AimanAlMasoud472462 extends Wizard {
 				@Override
 				public void publish(LogRecord arg0) {
 					
-					//prevent Murer's wizard from polluting my logs
-					for(StackTraceElement e :Thread.currentThread().getStackTrace()) {
-						if(e.toString().contains("Murer")) {
-							return;
-						}
+					
+					//prevent any wizard from polluting my logs
+					if(wizardsInStack()) {
+						return;
 					}
 					
 					
@@ -148,16 +147,18 @@ public class AimanAlMasoud472462 extends Wizard {
 	@Override
 	public Decision askKeepOrLiquidate(int fundValue, int timespan) {
 		
+		//if the caller is a wizard, tell them I'm keeping the fund
+		if(wizardsInStack()) {
+			return Decision.KEEP_FUND;
+		}
 		
 		
-		
-		
+		//else if the bank asks me...
 		try {
 			
-			if(currentOpponent.getName().contains("Aiman")&&timespan>4) {
+			if(currentOpponent.getName().contains("Aiman")&&timespan>=9) {
 				return Decision.LIQUIDATE_FUND;
 			}
-			
 			
 			//find out weather they'd liquidate on their next turn:
 			if(currentOpponent.askKeepOrLiquidate(2*fundValue, timespan+1)==Decision.LIQUIDATE_FUND) {
@@ -290,18 +291,29 @@ public class AimanAlMasoud472462 extends Wizard {
 	}
 	
 	
+	//check if there's wizards in the stack
+	final private boolean wizardsInStack() {
+		for(StackTraceElement e :Thread.currentThread().getStackTrace()) {
+			for(Wizard wizard : wizardsAndCapitals.keySet()) {
+				String nameOfWizard = wizard.toString().substring(wizard.toString().lastIndexOf(".")+1, wizard.toString().lastIndexOf("@"));
+				if(e.toString().contains(nameOfWizard)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
-	/*
+	
+	
 	//TEST: performs quite well with numberOfIterations > 1000, not so much
 	//if the number of iterations is small.
 	public static void main(String args[]) {
 		String[] argv = new String[1];
 		argv[0] = "1000";
 		AlchemicalBank.main(argv);
-		
-	
 	}
-	*/
+	
 	
 		
 	
