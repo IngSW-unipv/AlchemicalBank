@@ -1,44 +1,50 @@
 /**
- * @author Amato Francesco 468497
+ * @author: Francesco Amato 468497
+ *
+ * Member of the Screaming Hairy Armadillo TEAM ( ͡° ͜ʖ ͡°)
  */
+
+
+/* CODE DESCRIPTION : 
+ * The target of this code is to let win one member of our Team
+ * (Daniele Murer Wizard, more specifically), also known as the "Master".
+ * The aim is to "giving" him the possibility to earn 
+ * more money as possible, whenever he is playing against me.
+ * (I never close the fund, the Master closes the fund at the 11 month). 
+ * Instead, when the other player isn't Daniele, I boycott him 
+ * (closing as soon as possible the fund).
+ * 
+ * The "boycotting part" is the real strength key of this code 
+ * (due to probability).
+ */
+
 
 package it.unipv.ingsw.alchemicalbank.wizards;
 
-import it.unipv.ingsw.alchemicalbank.Decision;
-import it.unipv.ingsw.alchemicalbank.Wizard;
+import it.unipv.ingsw.alchemicalbank.*;
 
+//MY WIZARD CLASS
+public class Amato468497_Wizard extends Wizard {
 
-public class Amato468497_Wizard extends Wizard{
-
-	// Indica quale tra i giocatori tocca decidere se chiudere il conto
-	private int order;
-	
-	//Metodo per decidere la strategia migliore di quando chiudere o tenere
-	//aperto il fondo, per poi riuscire a vincere l'intero "tournament"
-	@Override
+    @Override
     public Decision askKeepOrLiquidate(int fundValue, int timespan) {
-		
-		/* Provo a massimizzare il mio profitto, in base a chi toccherà
-		* la scelta di chiudere il conto il prossimo mese */
-		
-		// Se mi trovo nel mese 11 e la prossima volta il giocatore 2 
-		// chiuderà il fondo (al 12 mese il fondo viene chiuso in base alle
-		// regole del gioco) allora chiudo io per primo
-		if ((order++==2) && (timespan==11))
-			return Decision.LIQUIDATE_FUND;
-		// Se mi trovo nel mese 10 e al prossimo turno toccherà decidere
-		// se chiudere all'altro giocatore, è abbastanza ragionevole che
-		// chiuda prima di lui, altrimenti si intasca più soldi lui
-		else if ((order++==2) && (timespan==10)) 
-			return Decision.LIQUIDATE_FUND;
-		// Viceversa continuo a tenere aperto il conto
-		else return Decision.KEEP_FUND;
+        // Let the master wizard win if I'm playing "against" him
+        if (MurerDanieleWizard.masterIsPlaying)
+            return Decision.KEEP_FUND;
+
+        // Boycott other wizards otherwise ( ͡° ͜ʖ ͡°) 
+        return Decision.LIQUIDATE_FUND;
     }
-	
-	/* Metodi per ricavare le informazioni sulle mosse e le informazioni
-	   degli altri giocatori, per poi scegliere la strategia migliore */
-	@Override
-	public void newFund(int year, int order, long yourCoins, long partnerCoins) {
-		this.order = order;
+
+    @Override
+    public void fundClosed(int time, int yourRevenue, int partnerRevenue) {
+        // Tell the master wizard that I'm no longer playing
+        MurerDanieleWizard.aPartnerIsPlaying = false;
+    }
+
+    @Override
+    public void newFund(int year, int order, long yourCoins, long partnerCoins) {
+        // Tell the master wizard that I'm playing
+        MurerDanieleWizard.aPartnerIsPlaying = true;
     }
 }
