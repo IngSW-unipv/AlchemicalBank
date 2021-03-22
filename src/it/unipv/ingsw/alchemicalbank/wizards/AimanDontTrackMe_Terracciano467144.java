@@ -187,7 +187,7 @@ public class AimanDontTrackMe_Terracciano467144 extends Wizard {
         	List<Class<?>> controlClassRefs = controlClasses.loadClasses();
         	for (Class<?> c : controlClassRefs) {
         		try {
-        			if(!c.toString().contains("Terracciano")) {
+        			if(!c.toString().contains("Aiman")) {
         				Wizard new_client = (Wizard)c.getDeclaredConstructor().newInstance();
     					accountsBuffer.put(new_client, STARTING_BALANCE);
         			}
